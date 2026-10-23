@@ -16,16 +16,9 @@ the simplest and safest option and recorded here. Breaking changes to
 | [0002](0002-action-allowlist-no-raw-commands.md) | Action allowlist, no raw commands | Accepted |
 | [0003](0003-tls-with-cert-pinning.md) | TLS with certificate pinning | Accepted |
 | [0004](0004-pairing-secret-design.md) | Pairing secret design | Accepted |
-
-## Not yet written
-
-The SRD (Section 5.1) also reserves 0005-0007:
-
-| ADR | Planned title | Status |
-| :-- | :-- | :-- |
-| 0005 | Event loop and threading model | Not written |
-| 0006 | Sensor provider abstraction | Not written |
-| 0007 | Protocol source of truth | Not written |
+| [0005](0005-event-loop-and-threading-model.md) | Event loop and threading model | Accepted |
+| [0006](0006-sensor-provider-abstraction.md) | Sensor provider abstraction | Accepted |
+| [0007](0007-protocol-source-of-truth.md) | Protocol source of truth | Accepted |
 
 ## Conventions
 
