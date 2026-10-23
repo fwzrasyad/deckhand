@@ -5,24 +5,15 @@
         protocol-check import-check run-daemon mock-daemon \
         package-daemon audit
 
-PYTHON := python
 DAEMON_DIR := daemon
 MOBILE_DIR := mobile
-
-# Detect the OS once. Windows virtualenvs use Scripts/, POSIX uses bin/.
-ifeq ($(OS),Windows_NT)
-VENV_BIN := .venv/Scripts
-else
-VENV_BIN := .venv/bin
-endif
+UV := uv
 
 # ── Setup ──────────────────────────────────────────────────────────────────────
 
 setup:
 	@echo "==> Setting up daemon venv..."
-	cd $(DAEMON_DIR) && $(PYTHON) -m venv .venv
-	cd $(DAEMON_DIR) && $(VENV_BIN)/pip install --upgrade pip
-	cd $(DAEMON_DIR) && $(VENV_BIN)/pip install -e ".[dev]"
+	cd $(DAEMON_DIR) && $(UV) sync --python 3.12
 	@echo "==> Setting up mobile dependencies..."
 	cd $(MOBILE_DIR) && flutter pub get
 	@echo "==> Installing pre-commit hooks..."
@@ -38,7 +29,7 @@ check: lint fmt typecheck import-check daemon-test mobile-test protocol-check
 
 lint:
 	@echo "==> Ruff lint..."
-	cd $(DAEMON_DIR) && $(VENV_BIN)/ruff check src/ tests/
+	cd $(DAEMON_DIR) && $(UV) run ruff check src/ tests/
 	@echo "==> Dart analyze..."
 	cd $(MOBILE_DIR) && dart analyze --fatal-infos lib/ test/
 
@@ -46,7 +37,7 @@ lint:
 
 fmt:
 	@echo "==> Ruff format check..."
-	cd $(DAEMON_DIR) && $(VENV_BIN)/ruff format --check src/ tests/
+	cd $(DAEMON_DIR) && $(UV) run ruff format --check src/ tests/
 	@echo "==> Dart format check..."
 	cd $(MOBILE_DIR) && dart format --set-exit-if-changed lib/ test/
 
@@ -54,23 +45,23 @@ fmt:
 
 typecheck:
 	@echo "==> mypy --strict..."
-	cd $(DAEMON_DIR) && $(VENV_BIN)/mypy src/
+	cd $(DAEMON_DIR) && $(UV) run mypy src/
 
 # ── Import linter ──────────────────────────────────────────────────────────────
 
 import-check:
 	@echo "==> import-linter (daemon layer contracts)..."
-	cd $(DAEMON_DIR) && $(VENV_BIN)/lint-imports
+	cd $(DAEMON_DIR) && $(UV) run lint-imports
 	@echo "==> check_imports.py (mobile layer contracts)..."
-	$(PYTHON) tools/scripts/check_imports.py $(MOBILE_DIR)/lib
+	$(UV) run --project $(DAEMON_DIR) python tools/scripts/check_imports.py $(MOBILE_DIR)/lib
 	@echo "==> check_imports.py tests..."
-	$(PYTHON) -m pytest tools/tests -q
+	$(UV) run --project $(DAEMON_DIR) python -m pytest tools/tests -q
 
 # ── Tests ──────────────────────────────────────────────────────────────────────
 
 daemon-test:
 	@echo "==> pytest daemon..."
-	cd $(DAEMON_DIR) && $(VENV_BIN)/pytest tests/ -v --tb=short \
+	cd $(DAEMON_DIR) && $(UV) run pytest tests/ -v --tb=short \
 	    --cov=src/deckhand --cov-report=term-missing
 
 mobile-test:
@@ -81,31 +72,31 @@ mobile-test:
 
 protocol-check:
 	@echo "==> Validating protocol schemas and fixtures..."
-	$(PYTHON) tools/scripts/validate_protocol.py \
+	$(UV) run --project $(DAEMON_DIR) python tools/scripts/validate_protocol.py \
 	    protocol/schemas protocol/fixtures
 
 # ── Run ────────────────────────────────────────────────────────────────────────
 
 run-daemon:
 	@echo "==> Starting deckhand daemon..."
-	cd $(DAEMON_DIR) && $(VENV_BIN)/python -m deckhand serve
+	cd $(DAEMON_DIR) && $(UV) run python -m deckhand serve
 
 mock-daemon:
 	@echo "==> Starting mock daemon..."
-	$(PYTHON) tools/mock_daemon/main.py
+	$(UV) run --project $(DAEMON_DIR) python tools/mock_daemon/main.py
 
 # ── Package ────────────────────────────────────────────────────────────────────
 
 package-daemon:
 	@echo "==> Building PyInstaller bundle..."
-	cd $(DAEMON_DIR) && $(VENV_BIN)/pyinstaller packaging/pyinstaller.spec
+	cd $(DAEMON_DIR) && $(UV) run pyinstaller packaging/pyinstaller.spec
 
 # ── Security audit ─────────────────────────────────────────────────────────────
 
 audit:
 	@echo "==> pip-audit..."
-	cd $(DAEMON_DIR) && $(VENV_BIN)/pip-audit
+	cd $(DAEMON_DIR) && $(UV) run pip-audit
 	@echo "==> gitleaks..."
 	gitleaks detect --source . --no-git
 	@echo "==> bandit..."
-	cd $(DAEMON_DIR) && $(VENV_BIN)/bandit -r src/ -ll
+	cd $(DAEMON_DIR) && $(UV) run bandit -r src/ -ll
