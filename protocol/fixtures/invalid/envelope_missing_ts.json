@@ -1,0 +1,8 @@
+{
+  "v": 1,
+  "type": "PING",
+  "id": "c-ping-0001",
+  "payload": {
+    "nonce": "9f2c"
+  }
+}

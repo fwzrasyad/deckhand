@@ -72,7 +72,7 @@ mobile-test:
 
 protocol-check:
 	@echo "==> Validating protocol schemas and fixtures..."
-	$(PYTHON) tools/scripts/check_imports.py --protocol-only \
+	$(PYTHON) tools/scripts/validate_protocol.py \
 	    protocol/schemas protocol/fixtures
 
 # ── Run ────────────────────────────────────────────────────────────────────────

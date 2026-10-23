@@ -1,0 +1,10 @@
+{
+  "v": 1,
+  "type": "AUTH_FAIL",
+  "id": "s-auth-0003",
+  "reply_to": "c-auth-0001",
+  "ts": 1760000000600,
+  "payload": {
+    "code": "AUTH_INVALID_TOKEN"
+  }
+}

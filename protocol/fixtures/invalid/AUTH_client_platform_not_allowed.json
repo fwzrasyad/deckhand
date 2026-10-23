@@ -1,0 +1,15 @@
+{
+  "v": 1,
+  "type": "AUTH",
+  "id": "c-auth-0001",
+  "ts": 1760000000200,
+  "payload": {
+    "device_id": "550e8400-e29b-41d4-a716-446655440001",
+    "token": "deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef",
+    "protocol_version": 1,
+    "client": {
+      "app_version": "0.1.0",
+      "platform": "windows"
+    }
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "type": "AUTH_OK",
+  "id": "s-auth-0002",
+  "reply_to": "c-auth-0001",
+  "ts": 1760000000500,
+  "payload": {
+    "session_id": "sess-01J9Z3ABC",
+    "device_name": "Alice's Pixel 8",
+    "protocol_version": 1,
+    "server_time_ms": 1760000000500
+  }
+}

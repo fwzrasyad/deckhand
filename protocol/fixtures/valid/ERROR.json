@@ -1,0 +1,14 @@
+{
+  "v": 1,
+  "type": "ERROR",
+  "id": "s-err-0001",
+  "reply_to": "c-run-0007",
+  "ts": 1760000000700,
+  "payload": {
+    "code": "PARAM_INVALID",
+    "message": "Invalid parameters",
+    "details": {
+      "param": "count"
+    }
+  }
+}

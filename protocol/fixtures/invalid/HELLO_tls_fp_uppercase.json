@@ -1,0 +1,17 @@
+{
+  "v": 1,
+  "type": "HELLO",
+  "id": "s-hello-0001",
+  "ts": 1760000000100,
+  "payload": {
+    "server_id": "550e8400-e29b-41d4-a716-446655440000",
+    "server_name": "my-workstation",
+    "daemon_version": "0.1.0",
+    "protocol_versions": [1],
+    "os": "linux",
+    "arch": "x86_64",
+    "tls_fp": "E3B0C44298FC1C149AFBF4C8996FB92427AE41E4649B934CA495991B7852B855",
+    "pairing_open": false,
+    "auth_required": true
+  }
+}
