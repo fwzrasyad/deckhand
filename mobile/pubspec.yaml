@@ -52,7 +52,7 @@ dev_dependencies:
 
   # Code generation.
   build_runner: ^2.15.1
-  freezed: ^3.2.5
+  freezed: ^4.0.3
   json_serializable: ^6.14.1
 
   # Lints and tests.
