@@ -1,0 +1,69 @@
+repos:
+  # Python: ruff lint + format
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.4
+    hooks:
+      - id: ruff
+        args: [--fix]
+        files: ^daemon/
+      - id: ruff-format
+        files: ^daemon/
+
+  # Python: mypy
+  - repo: local
+    hooks:
+      - id: mypy
+        name: mypy (daemon)
+        entry: bash -c 'cd daemon && .venv/bin/mypy src/'
+        language: system
+        files: ^daemon/src/
+        pass_filenames: false
+
+  # Python: import-linter
+  - repo: local
+    hooks:
+      - id: import-linter
+        name: import-linter (daemon layer contracts)
+        entry: bash -c 'cd daemon && .venv/bin/lint-imports'
+        language: system
+        files: ^daemon/src/
+        pass_filenames: false
+
+  # Dart: format
+  - repo: local
+    hooks:
+      - id: dart-format
+        name: dart format
+        entry: bash -c 'cd mobile && dart format --set-exit-if-changed lib/ test/'
+        language: system
+        files: ^mobile/lib/|^mobile/test/
+        pass_filenames: false
+
+  # Dart: analyze
+  - repo: local
+    hooks:
+      - id: dart-analyze
+        name: dart analyze
+        entry: bash -c 'cd mobile && dart analyze --fatal-infos lib/ test/'
+        language: system
+        files: ^mobile/lib/|^mobile/test/
+        pass_filenames: false
+
+  # General: trailing whitespace and end-of-file
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: \.md$
+      - id: end-of-file-fixer
+      - id: check-yaml
+      - id: check-json
+      - id: check-toml
+      - id: check-merge-conflict
+      - id: detect-private-key
+
+  # Gitleaks secret scanning
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.18.4
+    hooks:
+      - id: gitleaks

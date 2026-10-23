@@ -1,0 +1,20 @@
+# CODEOWNERS for Deckhand
+# Format: <pattern> <owner(s)>
+# See: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
+
+# Global fallback
+* @YOUR_ORG/deckhand-maintainers
+
+# Protocol (requires extra care — breaking changes bump the version)
+/protocol/ @YOUR_ORG/deckhand-maintainers
+
+# Security-sensitive code
+/daemon/src/deckhand/security/ @YOUR_ORG/deckhand-maintainers
+/daemon/src/deckhand/transport/ @YOUR_ORG/deckhand-maintainers
+/daemon/tests/security/ @YOUR_ORG/deckhand-maintainers
+
+# CI and release
+/.github/ @YOUR_ORG/deckhand-maintainers
+
+# Docs
+/docs/ @YOUR_ORG/deckhand-maintainers

@@ -1,0 +1,40 @@
+# Normalize line endings on checkout
+* text=auto eol=lf
+
+# Python
+*.py text eol=lf
+*.pyi text eol=lf
+
+# Dart
+*.dart text eol=lf
+
+# YAML / TOML / JSON
+*.yaml text eol=lf
+*.yml text eol=lf
+*.toml text eol=lf
+*.json text eol=lf
+
+# Markdown
+*.md text eol=lf
+
+# Shell scripts (must stay LF)
+*.sh text eol=lf
+
+# Windows batch (keep CRLF on Windows)
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# Binaries
+*.png binary
+*.jpg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.otf binary
+
+# Lock files (diff-able but don't modify)
+uv.lock -diff
+pubspec.lock -diff

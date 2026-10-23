@@ -1,0 +1,65 @@
+name: Mobile CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'mobile/**'
+      - 'protocol/**'
+      - '.github/workflows/mobile-ci.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'mobile/**'
+      - 'protocol/**'
+
+jobs:
+  test:
+    name: Flutter on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest]
+        # macOS job builds iOS without signing (optional):
+        include:
+          - os: macos-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+          cache: true
+
+      - name: Flutter pub get
+        working-directory: mobile
+        run: flutter pub get
+
+      - name: build_runner (no-diff check)
+        working-directory: mobile
+        run: dart run build_runner build --delete-conflicting-outputs
+
+      - name: dart format check
+        working-directory: mobile
+        run: dart format --set-exit-if-changed lib/ test/
+
+      - name: dart analyze
+        working-directory: mobile
+        run: dart analyze --fatal-infos lib/ test/
+
+      - name: Flutter test
+        working-directory: mobile
+        run: flutter test --coverage
+
+      - name: Build APK (debug)
+        working-directory: mobile
+        if: matrix.os == 'ubuntu-latest'
+        run: flutter build apk --debug
+
+      - name: Build iOS (no signing, macOS only)
+        working-directory: mobile
+        if: matrix.os == 'macos-latest'
+        run: flutter build ios --no-codesign --debug

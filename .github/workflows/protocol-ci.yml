@@ -1,0 +1,51 @@
+name: Protocol CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'protocol/**'
+      - 'tools/scripts/**'
+      - '.github/workflows/protocol-ci.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'protocol/**'
+
+jobs:
+  validate:
+    name: Protocol schema and fixture validation
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install jsonschema
+        run: pip install jsonschema
+
+      - name: JSON Schema meta-validation
+        run: |
+          python -c "
+          import json, jsonschema, pathlib
+          schema_dir = pathlib.Path('protocol/schemas')
+          for f in schema_dir.rglob('*.schema.json'):
+              schema = json.loads(f.read_text())
+              jsonschema.Draft7Validator.check_schema(schema)
+              print(f'OK: {f}')
+          "
+
+      - name: Validate fixtures against schemas
+        run: |
+          python tools/scripts/check_imports.py --protocol-only \
+            protocol/schemas protocol/fixtures
+
+      - name: Check VERSION file
+        run: |
+          version=$(cat protocol/VERSION)
+          echo "Protocol version: $version"
+          [ "$version" -ge 1 ] || (echo "VERSION must be >= 1" && exit 1)

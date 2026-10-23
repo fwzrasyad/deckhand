@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/messages/HELLO.schema.json",
+  "title": "HELLO payload",
+  "description": "First message sent by the daemon immediately after TLS handshake. See SRD Section 7.4 and 7.5.",
+  "type": "object",
+  "required": ["server_id", "server_name", "daemon_version", "protocol_versions", "os", "arch", "tls_fp", "pairing_open", "auth_required"],
+  "additionalProperties": true,
+  "properties": {
+    "server_id": {
+      "type": "string",
+      "description": "Stable random UUID for this daemon instance.",
+      "examples": ["550e8400-e29b-41d4-a716-446655440000"]
+    },
+    "server_name": {
+      "type": "string",
+      "description": "Human-readable hostname.",
+      "examples": ["my-workstation"]
+    },
+    "daemon_version": {
+      "type": "string",
+      "description": "SemVer daemon version string.",
+      "examples": ["0.1.0"]
+    },
+    "protocol_versions": {
+      "type": "array",
+      "description": "List of protocol version integers supported by this daemon.",
+      "items": { "type": "integer", "minimum": 1 },
+      "minItems": 1,
+      "examples": [[1]]
+    },
+    "os": {
+      "type": "string",
+      "description": "Operating system identifier.",
+      "enum": ["windows", "linux", "macos"],
+      "examples": ["linux"]
+    },
+    "arch": {
+      "type": "string",
+      "description": "CPU architecture.",
+      "examples": ["x86_64", "arm64"]
+    },
+    "tls_fp": {
+      "type": "string",
+      "description": "Lowercase hex SHA-256 of the daemon TLS certificate in DER form.",
+      "pattern": "^[0-9a-f]{64}$",
+      "examples": ["a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2c3d4e5f6a1b2"]
+    },
+    "pairing_open": {
+      "type": "boolean",
+      "description": "Whether a pairing window is currently open."
+    },
+    "auth_required": {
+      "type": "boolean",
+      "description": "Always true in v1. Reserved for future --insecure-dev mode."
+    }
+  }
+}

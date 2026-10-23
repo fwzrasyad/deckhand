@@ -1,0 +1,81 @@
+# Deckhand .gitignore
+
+# ── Python ────────────────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.venv/
+venv/
+env/
+.env
+pip-wheel-metadata/
+*.whl
+.mypy_cache/
+.ruff_cache/
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+*.prof
+uv.lock.bak
+
+# ── Dart / Flutter ────────────────────────────────────────────────────────────
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+pubspec.lock
+build/
+.pub-cache/
+*.g.dart
+*.freezed.dart
+coverage/
+
+# ── IDE / editors ─────────────────────────────────────────────────────────────
+.idea/
+.vscode/
+*.suo
+*.user
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+
+# ── OS ────────────────────────────────────────────────────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+desktop.ini
+
+# ── Runtime / secrets ─────────────────────────────────────────────────────────
+# Never commit TLS keys, tokens, or device stores
+*.pem
+*.key
+control.token
+devices.json
+deckhand.lock
+
+# ── Build artifacts ───────────────────────────────────────────────────────────
+dist/
+*.spec.bak
+/daemon/dist/
+/daemon/build/
+
+# ── Test artifacts ────────────────────────────────────────────────────────────
+.hypothesis/
+/daemon/tests/.tmp/
+/mobile/test/goldens/.diff/
+
+# ── Logs ──────────────────────────────────────────────────────────────────────
+*.log

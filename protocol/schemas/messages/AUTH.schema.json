@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/messages/AUTH.schema.json",
+  "title": "AUTH payload",
+  "description": "Sent by the client to authenticate an already-paired device. Must be sent within 5 seconds of HELLO. See SRD Sections 4.6 and 7.5.",
+  "type": "object",
+  "required": ["device_id", "token", "protocol_version", "client"],
+  "additionalProperties": true,
+  "properties": {
+    "device_id": {
+      "type": "string",
+      "description": "The device UUID assigned during pairing.",
+      "format": "uuid",
+      "examples": ["550e8400-e29b-41d4-a716-446655440001"]
+    },
+    "token": {
+      "type": "string",
+      "description": "The 256-bit device token (raw hex, 64 characters) issued at pairing.",
+      "pattern": "^[0-9a-f]{64}$",
+      "examples": ["deadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeef"]
+    },
+    "protocol_version": {
+      "type": "integer",
+      "description": "The protocol version the client selects from the HELLO.protocol_versions list.",
+      "minimum": 1,
+      "examples": [1]
+    },
+    "client": {
+      "type": "object",
+      "description": "Client identification metadata.",
+      "required": ["app_version", "platform"],
+      "additionalProperties": true,
+      "properties": {
+        "app_version": {
+          "type": "string",
+          "description": "SemVer app version.",
+          "examples": ["0.1.0"]
+        },
+        "platform": {
+          "type": "string",
+          "description": "Client platform.",
+          "enum": ["android", "ios"],
+          "examples": ["android"]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/envelope.schema.json",
+  "title": "Deckhand Message Envelope",
+  "description": "Every Deckhand WebSocket message (text frame, UTF-8 JSON) MUST conform to this envelope. See SRD Section 7.2.",
+  "type": "object",
+  "required": ["v", "type", "id", "ts", "payload"],
+  "additionalProperties": true,
+  "properties": {
+    "v": {
+      "type": "integer",
+      "description": "Protocol version integer. Currently 1.",
+      "minimum": 1,
+      "examples": [1]
+    },
+    "type": {
+      "type": "string",
+      "description": "Message type in SCREAMING_SNAKE_CASE.",
+      "pattern": "^[A-Z][A-Z0-9_]*$",
+      "examples": ["ACTION_RUN", "AUTH", "HELLO"]
+    },
+    "id": {
+      "type": "string",
+      "description": "Sender-generated unique identifier for this message within the session.",
+      "minLength": 1,
+      "maxLength": 64,
+      "examples": ["c-8f2a", "s-0001"]
+    },
+    "reply_to": {
+      "type": "string",
+      "description": "Optional. The 'id' of the request message being answered.",
+      "minLength": 1,
+      "maxLength": 64,
+      "examples": ["c-8f2a"]
+    },
+    "ts": {
+      "type": "integer",
+      "description": "Sender wall clock in milliseconds since the Unix epoch. Informational only — never used for security decisions.",
+      "minimum": 0,
+      "examples": [1760000000123]
+    },
+    "payload": {
+      "type": "object",
+      "description": "Message-type-specific payload. May be empty ({}) for messages with no data. Unknown fields MUST be ignored (PROTO-002)."
+    }
+  }
+}

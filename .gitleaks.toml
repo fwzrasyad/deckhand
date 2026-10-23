@@ -1,0 +1,31 @@
+# gitleaks configuration for Deckhand
+# Scans for secrets accidentally committed to the repository.
+# See: https://github.com/gitleaks/gitleaks
+
+title = "Deckhand gitleaks config"
+
+[extend]
+# Use the default ruleset as a base
+useDefault = true
+
+[[rules]]
+id = "deckhand-device-token"
+description = "Deckhand device token (256-bit hex)"
+regex = '''[0-9a-f]{64}'''
+tags = ["deckhand", "token"]
+keywords = ["device_token", "token_sha256"]
+
+[[rules]]
+id = "deckhand-pairing-secret"
+description = "Deckhand pairing secret (Crockford Base32, 12 chars)"
+regex = '''[0-9A-HJKMNP-TV-Z]{4}-[0-9A-HJKMNP-TV-Z]{4}-[0-9A-HJKMNP-TV-Z]{4}'''
+tags = ["deckhand", "pairing"]
+keywords = ["pairing_secret", "pair_secret"]
+
+[allowlist]
+description = "Allow test vectors and fixtures"
+paths = [
+  "protocol/fixtures",
+  "daemon/tests",
+  "mobile/test",
+]

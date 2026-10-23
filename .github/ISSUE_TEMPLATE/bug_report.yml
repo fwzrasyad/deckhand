@@ -1,0 +1,94 @@
+name: Bug Report
+description: Report a defect in Deckhand
+labels: ["bug", "triage"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report a bug. Please fill in as much detail as possible.
+
+  - type: input
+    id: daemon-version
+    attributes:
+      label: Daemon version
+      description: Output of `deckhand --version`
+      placeholder: "0.1.0"
+    validations:
+      required: true
+
+  - type: input
+    id: app-version
+    attributes:
+      label: App version (if applicable)
+      placeholder: "0.1.0"
+
+  - type: dropdown
+    id: os
+    attributes:
+      label: Daemon OS
+      options:
+        - Windows 10
+        - Windows 11
+        - Ubuntu / Debian
+        - Fedora / RHEL
+        - macOS 13 (Ventura)
+        - macOS 14 (Sonoma)
+        - Other Linux
+    validations:
+      required: true
+
+  - type: dropdown
+    id: phone-os
+    attributes:
+      label: Phone OS (if applicable)
+      options:
+        - Android
+        - iOS
+        - N/A
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      description: Step-by-step instructions to reproduce the issue.
+      placeholder: |
+        1. Run `deckhand serve`
+        2. Pair phone
+        3. Tap action '...'
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: |
+        Paste relevant sections from `deckhand.log` or `audit.log`.
+        **Do not paste tokens, pairing secrets, or private keys.**
+      render: text
+
+  - type: checkboxes
+    id: security
+    attributes:
+      label: Security note
+      options:
+        - label: I have not included any tokens, pairing secrets, or private keys in this report.
+          required: true

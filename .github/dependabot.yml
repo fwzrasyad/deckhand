@@ -1,0 +1,34 @@
+version: 2
+updates:
+  # Python (pip)
+  - package-ecosystem: pip
+    directory: /daemon
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "daemon"
+
+  # Dart / Flutter (pub)
+  - package-ecosystem: pub
+    directory: /mobile
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "mobile"
+
+  # GitHub Actions
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "ci"

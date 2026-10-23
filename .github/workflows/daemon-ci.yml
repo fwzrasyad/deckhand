@@ -1,0 +1,73 @@
+name: Daemon CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'daemon/**'
+      - 'protocol/**'
+      - '.github/workflows/daemon-ci.yml'
+  pull_request:
+    branches: [main]
+    paths:
+      - 'daemon/**'
+      - 'protocol/**'
+
+jobs:
+  test:
+    name: Python ${{ matrix.python-version }} on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        python-version: ["3.11", "3.12", "3.13"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+
+      - name: Install dependencies
+        working-directory: daemon
+        run: uv pip install --system -e ".[dev]"
+
+      - name: Ruff lint
+        working-directory: daemon
+        run: ruff check src/ tests/
+
+      - name: Ruff format check
+        working-directory: daemon
+        run: ruff format --check src/ tests/
+
+      - name: mypy --strict
+        working-directory: daemon
+        run: mypy src/
+
+      - name: import-linter
+        working-directory: daemon
+        run: lint-imports
+
+      - name: pytest
+        working-directory: daemon
+        run: |
+          pytest tests/ -v --tb=short \
+            --cov=src/deckhand --cov-report=xml \
+            -m "not manual"
+
+      - name: bandit
+        working-directory: daemon
+        run: bandit -r src/ -ll
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v4
+        if: matrix.os == 'ubuntu-latest' && matrix.python-version == '3.11'
+        with:
+          file: daemon/coverage.xml
+          flags: daemon

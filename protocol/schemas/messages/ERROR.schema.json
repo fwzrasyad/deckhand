@@ -1,0 +1,53 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/messages/ERROR.schema.json",
+  "title": "ERROR payload",
+  "description": "Sent by the daemon to signal a protocol or application error. When answering a specific request the envelope's reply_to is set to the request id. See SRD Sections 7.5 and 7.7.",
+  "type": "object",
+  "required": ["code", "message"],
+  "additionalProperties": true,
+  "properties": {
+    "code": {
+      "type": "string",
+      "description": "Machine-readable error code from the registry in SRD Section 7.7.",
+      "enum": [
+        "PROTO_MALFORMED",
+        "PROTO_UNKNOWN_TYPE",
+        "PROTO_VERSION_UNSUPPORTED",
+        "AUTH_REQUIRED",
+        "AUTH_INVALID_TOKEN",
+        "AUTH_REVOKED",
+        "AUTH_LOCKED_OUT",
+        "PAIR_WINDOW_CLOSED",
+        "PAIR_BAD_PROOF",
+        "PAIR_LOCKED_OUT",
+        "RATE_LIMITED",
+        "ACTION_NOT_FOUND",
+        "PARAM_INVALID",
+        "ACTION_BUSY",
+        "RUN_LIMIT_REACHED",
+        "RUN_NOT_FOUND",
+        "RUN_NOT_ACTIVE",
+        "RUN_NOT_INTERACTIVE",
+        "SIGNAL_UNSUPPORTED",
+        "LAYOUT_CONFLICT",
+        "LAYOUT_INVALID",
+        "ALERT_RULES_INVALID",
+        "UNSUPPORTED_ON_HOST",
+        "SHUTTING_DOWN",
+        "INTERNAL_ERROR"
+      ],
+      "examples": ["PARAM_INVALID"]
+    },
+    "message": {
+      "type": "string",
+      "description": "Human-readable error description. MUST NOT contain internal paths, argv, environment variables, or stack traces (PROTO-005).",
+      "examples": ["Invalid parameters"]
+    },
+    "details": {
+      "type": "object",
+      "description": "Optional structured details. Schema depends on the error code.",
+      "additionalProperties": true
+    }
+  }
+}

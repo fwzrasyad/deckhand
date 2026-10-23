@@ -1,0 +1,60 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/messages/AUTH_OK.schema.json",
+  "title": "AUTH_OK payload",
+  "description": "Sent by the daemon on successful authentication. Followed immediately by a SNAPSHOT. See SRD Section 7.5.",
+  "type": "object",
+  "required": ["session_id", "device_name", "protocol_version", "server_time_ms", "limits"],
+  "additionalProperties": true,
+  "properties": {
+    "session_id": {
+      "type": "string",
+      "description": "Opaque identifier for this WebSocket session (unique per connection).",
+      "examples": ["sess-01J9Z3ABC"]
+    },
+    "device_name": {
+      "type": "string",
+      "description": "The human-readable name of the authenticated device.",
+      "examples": ["Alice's Pixel 8"]
+    },
+    "protocol_version": {
+      "type": "integer",
+      "description": "Confirmed protocol version for this session.",
+      "minimum": 1,
+      "examples": [1]
+    },
+    "server_time_ms": {
+      "type": "integer",
+      "description": "Daemon wall clock in milliseconds since the Unix epoch at the time of AUTH_OK.",
+      "minimum": 0,
+      "examples": [1760000000500]
+    },
+    "limits": {
+      "type": "object",
+      "description": "Effective per-session limits for this connection.",
+      "additionalProperties": true,
+      "properties": {
+        "max_frame_bytes": {
+          "type": "integer",
+          "description": "Maximum inbound frame size in bytes.",
+          "examples": [65536]
+        },
+        "messages_per_sec": {
+          "type": "integer",
+          "description": "Sustained message rate limit.",
+          "examples": [50]
+        },
+        "burst": {
+          "type": "integer",
+          "description": "Token-bucket burst capacity.",
+          "examples": [100]
+        },
+        "action_runs_per_sec": {
+          "type": "integer",
+          "description": "Maximum ACTION_RUN messages per second.",
+          "examples": [5]
+        }
+      }
+    }
+  }
+}
