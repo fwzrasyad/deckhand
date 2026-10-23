@@ -1,0 +1,78 @@
+# Example actions.yaml for the Deckhand daemon (SRD 8.3).
+# Copy to the config directory next to config.toml.
+#
+# This file is the security boundary: it is edited only on the PC, loaded with
+# yaml.safe_load, and validated on load. A paired phone can only reference these
+# ids; it can never create, modify, or delete an action.
+
+version: 1
+
+actions:
+  - id: docker-up
+    label: Docker Up
+    icon: docker
+    category: Docker
+    run:
+      type: exec
+      argv: [docker, compose, up, -d]
+      cwd: ~/projects/api
+    status:
+      probe: docker_container
+      target: api-db-1
+
+  - id: docker-down
+    label: Docker Down
+    icon: stop
+    category: Docker
+    confirm: true
+    run:
+      type: exec
+      argv: [docker, compose, down]
+      cwd: ~/projects/api
+
+  - id: git-checkout
+    label: Checkout
+    icon: git-branch
+    category: Git
+    run:
+      type: exec
+      argv: [git, checkout, '{{branch}}']
+      cwd: ~/projects/api
+    params:
+      - name: branch
+        label: Branch
+        type: string
+        required: true
+        max_length: 64
+        pattern: '^[A-Za-z0-9._/-]+$'
+
+  - id: build
+    label: Build
+    icon: hammer
+    category: Build
+    mode: pty
+    timeout_sec: 1800
+    run:
+      type: exec
+      argv: [npm, run, build]
+      cwd: ~/projects/web
+
+  - id: python-repl
+    label: Python REPL
+    icon: terminal
+    mode: pty
+    interactive: true
+    run:
+      type: exec
+      argv: [python3]
+
+  - id: morning
+    label: Morning Setup
+    icon: sun
+    run:
+      type: macro
+      on_error: stop
+      steps:
+        - action: docker-up
+        - action: git-checkout
+          params: { branch: main }

@@ -1,0 +1,39 @@
+# systemd user unit for the Deckhand daemon (SRD 13.2).
+#
+# Install:
+#   mkdir -p ~/.config/systemd/user
+#   cp deckhand.service ~/.config/systemd/user/
+#   systemctl --user daemon-reload
+#   systemctl --user enable --now deckhand.service
+#
+# `deckhand autostart enable` writes this file for you (Phase 3).
+# The daemon must not run as root (SEC-013), so this is a *user* unit, never a
+# system unit.
+
+[Unit]
+Description=Deckhand daemon (phone control surface for this PC)
+Documentation=https://github.com/deckhand/deckhand
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=%h/.local/bin/deckhand serve --no-tray
+Restart=on-failure
+RestartSec=5
+# Graceful shutdown: the daemon closes sessions with 4503 before exiting.
+KillSignal=SIGTERM
+TimeoutStopSec=10
+
+# Hardening: the daemon needs its own config, state, and log directories only.
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=%h/.local/state/deckhand %h/.local/share/deckhand
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+
+[Install]
+WantedBy=default.target

@@ -1,0 +1,16 @@
+[Desktop Entry]
+# XDG autostart entry for the Deckhand daemon (SRD 13.2).
+#
+# Used as the fallback when systemd is unavailable or the user prefers a desktop
+# session entry. Install to ~/.config/autostart/deckhand.desktop.
+# `deckhand autostart enable` writes this file for you (Phase 3).
+
+Type=Application
+Name=Deckhand
+Comment=Phone control surface for this PC
+Exec=deckhand serve
+Icon=deckhand
+Terminal=false
+Categories=Development;Utility;
+StartupNotify=false
+X-GNOME-Autostart-enabled=true

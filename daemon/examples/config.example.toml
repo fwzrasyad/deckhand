@@ -1,0 +1,56 @@
+# Example config.toml for the Deckhand daemon (SRD 8.2).
+# Copy to the config directory and edit. Every key is optional; the values below
+# are the defaults. Unknown keys are a validation error.
+#
+# Config dir: Windows %APPDATA%\Deckhand, Linux ~/.config/deckhand,
+#             macOS ~/Library/Application Support/Deckhand
+# Override every path with the DECKHAND_HOME environment variable.
+
+[server]
+bind = "0.0.0.0"
+port = 47800
+# Connections from outside these ranges are closed at accept (SEC-011).
+allowed_networks = [
+    "127.0.0.0/8",
+    "10.0.0.0/8",
+    "172.16.0.0/12",
+    "192.168.0.0/16",
+    "100.64.0.0/10",
+    "fe80::/10",
+    "fc00::/7",
+]
+max_connections = 8
+max_unauthenticated = 4
+
+[security]
+allow_shell = false          # enables run.type = shell; keep off unless you need it
+remote_layout_edit = true    # allow LAYOUT_SET from a paired phone
+remote_alert_edit = true     # allow ALERT_RULES_SET from a paired phone
+
+[runs]
+max_concurrent = 16
+default_timeout_sec = 0      # 0 = no timeout
+kill_grace_sec = 5
+kill_on_exit = true
+log_buffer_lines = 5000
+retain_finished = 20
+retain_minutes = 30
+
+[telemetry]
+default_interval_ms = 1000
+# Windows only, opt-in: LibreHardwareMonitor JSON endpoint.
+libre_hardware_monitor_url = ""
+
+[mdns]
+enabled = true
+
+[actions]
+watch = true                 # poll actions.yaml mtime every 2 s
+
+[logging]
+level = "INFO"
+json_file = true
+
+[notifier]
+type = "none"                # none | ntfy (Phase 6)
+url = ""
