@@ -1,12 +1,14 @@
 # Deckhand — Progress Tracker
 
 > Updated by the coding agent after each phase. Keep this file accurate.
+>
+> Last verified: 2026-10-23, commit `00494c7`.
 
 ## Phase 0 — Foundations 🔄 In Progress
 
 ### Checklist
 
-- [x] Monorepo skeleton: all directories from SRD Section 5.1
+- [ ] Monorepo skeleton: all directories from SRD Section 5.1 — missing `mobile/lib/shared/extensions/`
 - [x] Root files: README, LICENSE, CONTRIBUTING, SECURITY, CODE_OF_CONDUCT, CHANGELOG
 - [x] `.editorconfig`, `.gitattributes`, `.gitignore`, `.gitleaks.toml`, `.pre-commit-config.yaml`
 - [x] `Makefile` with all targets from Section 5.4
@@ -24,14 +26,20 @@
 
 ### Acceptance Criteria (from SRD Phase 0)
 
-- [ ] `make check` passes (pending: requires Python and Flutter runtime)
-- [ ] CI green on all three OS for the daemon
-- [ ] A deliberate forbidden import is caught by import-linter (proved by a test)
-- [ ] `make protocol-check` validates fixtures
+- [x] `make check` passes — verified 2026-10-23: exit 0 (lint, fmt, typecheck, import-check, daemon-test, mobile-test, protocol-check)
+- [ ] CI green on all three OS for the daemon — not verified: no GitHub remote, so workflows have never run
+- [x] A deliberate forbidden import is caught by import-linter (proved by a test) — verified: `pytest tests/unit/test_import_contracts.py` 2 passed
+- [x] `make protocol-check` validates fixtures — verified: 12 fixtures behaved as expected, 0 failures
 
 ### Known Gaps / Decisions
 
-- None yet. Add ADR references here if design decisions were made.
+- Missing vs SRD 5.1: `mobile/build.yaml`, `mobile/lib/shared/extensions/`,
+  `tools/scripts/bootstrap.sh`, `tools/scripts/bump_version.py`,
+  `tools/scripts/record_session.py`.
+- `mobile/lib/shared/extensions/` is listed by the SRD but would be empty; the
+  project rule forbids empty folders.
+- CI is unverified: the repository has no git remote, so the workflows have
+  never run on any OS.
 
 ---
 
