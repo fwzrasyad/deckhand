@@ -1,0 +1,72 @@
+name: deckhand
+description: "Deckhand mobile app: control surface for a paired development PC."
+publish_to: "none"
+
+# App version. SemVer, with the build number after "+" (SRD 13.3).
+version: 0.1.0+1
+
+environment:
+  sdk: ^3.11.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_localizations:
+    sdk: flutter
+
+  # State, routing, models (SRD 6.2).
+  flutter_riverpod: ^2.6.1
+  go_router: ^17.5.0
+  freezed_annotation: ^3.1.0
+  json_annotation: ^4.12.0
+
+  # Network and crypto.
+  web_socket_channel: ^3.0.3
+  crypto: ^3.0.7
+  uuid: ^4.6.0
+
+  # Storage.
+  flutter_secure_storage: ^11.2.0
+  shared_preferences: ^2.5.6
+
+  # Discovery, pairing, UI, platform services.
+  nsd: ^5.0.1
+  mobile_scanner: ^7.4.2
+  fl_chart: ^1.3.0
+  xterm: ^4.0.0
+  reorderable_grid_view: ^2.2.8
+  wakelock_plus: ^1.7.0
+  local_auth: ^3.0.2
+  connectivity_plus: ^7.3.1
+  vibration: ^3.2.1
+  intl: ^0.20.2
+  logger: ^2.8.0
+
+  cupertino_icons: ^1.0.8
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  integration_test:
+    sdk: flutter
+
+  # Code generation.
+  build_runner: ^2.15.1
+  freezed: ^3.2.5
+  json_serializable: ^6.14.1
+
+  # Lints and tests.
+  very_good_analysis: ^10.2.0
+  mocktail: ^1.0.5
+
+flutter:
+  uses-material-design: true
+  generate: true
+
+  # Real icon and font assets arrive in Phase 3 (tray icons, QR branding).
+  # assets:
+  #   - assets/icons/
+  # fonts:
+  #   - family: DeckhandMono
+  #     fonts:
+  #       - asset: assets/fonts/DeckhandMono-Regular.ttf

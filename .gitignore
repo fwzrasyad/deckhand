@@ -31,7 +31,7 @@ uv.lock.bak
 .flutter-plugins
 .flutter-plugins-dependencies
 .packages
-pubspec.lock
+# pubspec.lock is committed for Flutter applications (only libraries ignore it).
 build/
 .pub-cache/
 *.g.dart

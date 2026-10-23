@@ -1,0 +1,10 @@
+# Localization configuration (SRD 5.3, 10.10).
+#
+# Generated files land in lib/l10n/ and are ignored by git; `flutter pub get`
+# regenerates them because `generate: true` is set in pubspec.yaml.
+
+arb-dir: lib/l10n
+template-arb-file: app_en.arb
+output-localization-file: app_localizations.dart
+output-class: AppLocalizations
+nullable-getter: false

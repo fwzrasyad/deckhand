@@ -1,0 +1,35 @@
+{
+  "@@locale": "en",
+  "appTitle": "Deckhand",
+  "@appTitle": {
+    "description": "The application name shown in the task switcher and app bar."
+  },
+  "hostsTitle": "Hosts",
+  "@hostsTitle": {
+    "description": "Title of the host list screen."
+  },
+  "deckTitle": "Deck",
+  "@deckTitle": {
+    "description": "Title of the action grid screen."
+  },
+  "connectAction": "Connect",
+  "@connectAction": {
+    "description": "Button that starts a connection to the selected host."
+  },
+  "disconnectAction": "Disconnect",
+  "@disconnectAction": {
+    "description": "Button that closes the current connection."
+  },
+  "pairAction": "Pair a phone",
+  "@pairAction": {
+    "description": "Button that opens the pairing flow."
+  },
+  "cancelAction": "Cancel",
+  "@cancelAction": {
+    "description": "Generic cancel button label."
+  },
+  "retryAction": "Retry",
+  "@retryAction": {
+    "description": "Generic retry button label."
+  }
+}
