@@ -56,6 +56,8 @@ import-check:
 	cd $(DAEMON_DIR) && .venv/bin/lint-imports
 	@echo "==> check_imports.py (mobile layer contracts)..."
 	$(PYTHON) tools/scripts/check_imports.py $(MOBILE_DIR)/lib
+	@echo "==> check_imports.py tests..."
+	$(PYTHON) -m pytest tools/tests -q
 
 # ── Tests ──────────────────────────────────────────────────────────────────────
 
