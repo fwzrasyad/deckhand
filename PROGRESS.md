@@ -22,7 +22,7 @@
 - [x] `daemon/tests/` skeleton: conftest, unit mirrors, integration, security, contract, e2e
 - [x] `mobile/pubspec.yaml` with all deps from Section 6.2
 - [x] `mobile/lib/` skeleton: all Dart files with responsibility comments
-- [x] `tools/` skeleton: mock_daemon, loadtest, scripts
+- [x] `tools/` skeleton: mock_daemon, loadtest, scripts (bootstrap.sh, bump_version.py, record_session.py are stubs)
 
 ### Acceptance Criteria (from SRD Phase 0)
 
@@ -33,9 +33,7 @@
 
 ### Known Gaps / Decisions
 
-- Missing vs SRD 5.1: `mobile/build.yaml`, `mobile/lib/shared/extensions/`,
-  `tools/scripts/bootstrap.sh`, `tools/scripts/bump_version.py`,
-  `tools/scripts/record_session.py`.
+- Missing vs SRD 5.1: `mobile/build.yaml`, `mobile/lib/shared/extensions/`.
 - `mobile/lib/shared/extensions/` is listed by the SRD but would be empty; the
   project rule forbids empty folders.
 - CI is unverified: the repository has no git remote, so the workflows have
