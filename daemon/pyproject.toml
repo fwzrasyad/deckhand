@@ -179,7 +179,11 @@ layers = [
     "deckhand.transport",
     "deckhand.security | deckhand.actions | deckhand.process | deckhand.status | deckhand.telemetry | deckhand.alerts | deckhand.layout | deckhand.discovery",
     "deckhand.protocol",
-    "deckhand.core | deckhand.config | deckhand.platform",
+    # Layer 0. Config resolves directories through the platform interface, and
+    # both foundations use the error hierarchy in core; core imports neither.
+    "deckhand.config",
+    "deckhand.platform",
+    "deckhand.core",
 ]
 
 # Allowed cross-service imports only: actions -> process, status -> process, alerts -> telemetry.
