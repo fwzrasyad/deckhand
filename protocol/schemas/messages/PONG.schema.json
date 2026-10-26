@@ -2,11 +2,11 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://deckhand.local/protocol/schemas/messages/PONG.schema.json",
   "title": "PONG payload",
-  "description": "Answer to a PING, sendable by either side. See SRD Sections 7.5 and 7.9.",
+  "description": "Answer to a PING, sendable by either side. See SRD Sections 7.5 and 7.9. The nonce is an opaque keepalive value, not a pairing nonce.",
   "type": "object",
   "required": ["nonce"],
   "additionalProperties": true,
   "properties": {
-    "nonce": { "type": "string", "description": "The 22-character unpadded base64url nonce from the PING being answered.", "pattern": "^[A-Za-z0-9_-]{22}$", "examples": ["ZGVja2hhbmQtcGluZy0wMQ"] }
+    "nonce": { "type": "string", "maxLength": 64, "description": "The opaque string from the PING being answered, at most 64 characters.", "examples": ["ping-0002-4f1c-keepalive"] }
   }
 }

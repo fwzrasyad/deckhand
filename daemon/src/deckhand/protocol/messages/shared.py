@@ -15,7 +15,10 @@ from typing import Annotated, Any, Final
 from pydantic import BaseModel, ConfigDict, Field
 
 ShortId = Annotated[str, Field(min_length=1, max_length=64)]
+# Pairing nonces are exactly 16 bytes as 22 unpadded base64url characters.
 Nonce = Annotated[str, Field(pattern=r"^[A-Za-z0-9_-]{22}$")]
+# PING/PONG nonces are opaque keepalive values, unrelated to pairing.
+PingNonce = Annotated[str, Field(max_length=64)]
 Proof = Annotated[str, Field(pattern=r"^[A-Za-z0-9_-]{43}$")]
 Hex64 = Annotated[str, Field(pattern=r"^[0-9a-f]{64}$")]
 UuidString = Annotated[

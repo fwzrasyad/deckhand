@@ -22,6 +22,7 @@ from .shared import (
     Nonce,
     OsName,
     PairFailCode,
+    PingNonce,
     Proof,
     ProtocolModel,
     RunState,
@@ -96,7 +97,7 @@ class PongPayload(ProtocolModel):
 
     TYPE: ClassVar[str] = "PONG"
 
-    nonce: Nonce
+    nonce: PingNonce
 
 
 class ServerShutdownPayload(ProtocolModel):

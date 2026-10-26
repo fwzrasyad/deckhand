@@ -14,6 +14,7 @@ from .shared import (
     ClientPlatform,
     Hex64,
     Nonce,
+    PingNonce,
     Proof,
     ProtocolModel,
     ShortId,
@@ -61,7 +62,7 @@ class PingPayload(ProtocolModel):
 
     TYPE: ClassVar[str] = "PING"
 
-    nonce: Nonce
+    nonce: PingNonce
 
 
 class ActionRunPayload(ProtocolModel):

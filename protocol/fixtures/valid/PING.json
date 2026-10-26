@@ -4,6 +4,6 @@
   "id": "c-ping-0002",
   "ts": 1760000001500,
   "payload": {
-    "nonce": "ZGVja2hhbmQtcGluZy0wMQ"
+    "nonce": "ping-0002-4f1c-keepalive"
   }
 }

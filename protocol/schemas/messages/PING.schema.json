@@ -2,11 +2,11 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "https://deckhand.local/protocol/schemas/messages/PING.schema.json",
   "title": "PING payload",
-  "description": "Optional keepalive and RTT probe, sendable by either side. See SRD Sections 7.5 and 7.9.",
+  "description": "Optional keepalive and RTT probe, sendable by either side. See SRD Sections 7.5 and 7.9. The nonce is an opaque keepalive value, not a pairing nonce.",
   "type": "object",
   "required": ["nonce"],
   "additionalProperties": true,
   "properties": {
-    "nonce": { "type": "string", "description": "16 random bytes as 22 characters of unpadded base64url, echoed by the matching PONG.", "pattern": "^[A-Za-z0-9_-]{22}$", "examples": ["ZGVja2hhbmQtcGluZy0wMQ"] }
+    "nonce": { "type": "string", "maxLength": 64, "description": "Any string of at most 64 characters, echoed by the matching PONG.", "examples": ["ping-0002-4f1c-keepalive"] }
   }
 }

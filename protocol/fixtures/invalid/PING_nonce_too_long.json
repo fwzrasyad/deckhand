@@ -1,0 +1,9 @@
+{
+  "v": 1,
+  "type": "PING",
+  "id": "c-ping-0019",
+  "ts": 1760000004800,
+  "payload": {
+    "nonce": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+  }
+}

@@ -58,8 +58,10 @@ Shared shapes in `schemas/shared/`: `ActionMeta`, `ParamSpec`, `RunState`,
 Every nonce and proof on the wire is **unpadded base64url** (the URL-safe
 alphabet `A-Z a-z 0-9 - _`, no `=` padding) with an exact length:
 
-- A 16-byte nonce is exactly **22 characters** (`PAIR_REQUEST.client_nonce`,
-  `PAIR_CHALLENGE.server_nonce`, `PING.nonce`, `PONG.nonce`).
+- A pairing nonce is exactly **22 characters** (`PAIR_REQUEST.client_nonce`,
+  `PAIR_CHALLENGE.server_nonce`).
+- `PING.nonce` and `PONG.nonce` are opaque keepalive strings of **at most 64
+  characters**, unrelated to pairing.
 - A 32-byte HMAC-SHA256 proof is exactly **43 characters**
   (`PAIR_PROOF.proof`, `PAIR_OK.server_proof`).
 
