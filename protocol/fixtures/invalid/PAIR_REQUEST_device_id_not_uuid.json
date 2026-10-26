@@ -6,6 +6,6 @@
   "payload": {
     "device_id": "not-a-uuid",
     "device_name": "Alice's Pixel 8",
-    "client_nonce": "ZmFrZS1jbGllbnQtbm9uY2U"
+    "client_nonce": "ZGVja2hhbmQtY2xpZW50IQ"
   }
 }

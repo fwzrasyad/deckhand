@@ -7,6 +7,6 @@
   "required": ["proof"],
   "additionalProperties": true,
   "properties": {
-    "proof": { "type": "string", "description": "base64url(HMAC-SHA256(K, transcript(client))).", "pattern": "^[A-Za-z0-9_-]+$", "maxLength": 128, "examples": ["ZmFrZS1wYWlyaW5nLXByb29m"] }
+    "proof": { "type": "string", "description": "base64url(HMAC-SHA256(K, transcript(client))): 32 bytes as 43 characters of unpadded base64url.", "pattern": "^[A-Za-z0-9_-]{43}$", "examples": ["MDEyMzQ1Njc4OWFiY2RlZjAxMjM0NTY3ODlhYmNkZWY"] }
   }
 }

@@ -7,6 +7,6 @@
   "required": ["nonce"],
   "additionalProperties": true,
   "properties": {
-    "nonce": { "type": "string", "description": "The nonce from the PING being answered.", "pattern": "^[A-Za-z0-9_-]+$", "maxLength": 64, "examples": ["cGluZy0wMDAx"] }
+    "nonce": { "type": "string", "description": "The 22-character unpadded base64url nonce from the PING being answered.", "pattern": "^[A-Za-z0-9_-]{22}$", "examples": ["ZGVja2hhbmQtcGluZy0wMQ"] }
   }
 }

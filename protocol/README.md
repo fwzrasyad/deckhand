@@ -53,6 +53,45 @@ referenced from message schemas with relative `$ref`s.
 Shared shapes in `schemas/shared/`: `ActionMeta`, `ParamSpec`, `RunState`,
 `Layout`, `Capabilities`, `AlertRule`, `LogLine`, `StatusItem`.
 
+## Nonces, proofs, and tokens (v1)
+
+Every nonce and proof on the wire is **unpadded base64url** (the URL-safe
+alphabet `A-Z a-z 0-9 - _`, no `=` padding) with an exact length:
+
+- A 16-byte nonce is exactly **22 characters** (`PAIR_REQUEST.client_nonce`,
+  `PAIR_CHALLENGE.server_nonce`, `PING.nonce`, `PONG.nonce`).
+- A 32-byte HMAC-SHA256 proof is exactly **43 characters**
+  (`PAIR_PROOF.proof`, `PAIR_OK.server_proof`).
+
+`PAIR_OK.device_token` is **64 lowercase hex characters**, the same form as
+`AUTH.token`. Receivers reject anything else with `PROTO_MALFORMED`.
+
+## Capabilities (frozen for protocol v1)
+
+`SNAPSHOT.payload.capabilities` is a `Capabilities` object. These field names
+are frozen for protocol v1: the Flutter app hard-codes them, so renaming any
+field requires an explicit protocol decision (and a `VERSION` bump under rule
+3). Booleans mean "supported on this host"; lists use the values the daemon
+can actually serve.
+
+- `os`: string, one of `windows`, `linux`, `macos`.
+- `telemetry` (object):
+  - `cpu_temp`: boolean - CPU temperature is available.
+  - `gpu`: boolean - GPU metrics are available.
+  - `gpu_vendors`: list of strings - detected GPU vendors (for example
+    `nvidia`); empty when no GPU metrics are supported.
+  - `battery`: boolean - battery metrics are available.
+  - `disk`: boolean - disk throughput and volume metrics are available.
+  - `net`: boolean - network throughput metrics are available.
+- `features` (object):
+  - `pty`: boolean - PTY runs are supported on this host.
+  - `signals`: list of strings - deliverable signals, each `INTERRUPT`,
+    `TERMINATE`, or `KILL`.
+  - `probes`: list of strings - status probes implemented on this host (for
+    example `process_alive`, `docker_container`).
+  - `notifier`: string - configured notifier type (for example `none`,
+    `ntfy`).
+
 ## Rules
 
 1. **Never edit schemas without updating fixtures** — `make protocol-check`

@@ -4,6 +4,6 @@
   "id": "s-pair-0012",
   "ts": 1760000004100,
   "payload": {
-    "server_nonce": "not+base64/url=="
+    "server_nonce": "AAAAAAAAAAAAAAAAAAAA+?"
   }
 }

@@ -7,6 +7,6 @@
   "required": ["server_nonce"],
   "additionalProperties": true,
   "properties": {
-    "server_nonce": { "type": "string", "description": "16 random bytes, base64url.", "pattern": "^[A-Za-z0-9_-]+$", "maxLength": 64, "examples": ["ZmFrZS1zZXJ2ZXItbm9uY2U"] }
+    "server_nonce": { "type": "string", "description": "16 random bytes as 22 characters of unpadded base64url.", "pattern": "^[A-Za-z0-9_-]{22}$", "examples": ["ZGVja2hhbmQtc2VydmVyIQ"] }
   }
 }

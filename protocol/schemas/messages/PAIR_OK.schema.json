@@ -8,6 +8,6 @@
   "additionalProperties": true,
   "properties": {
     "device_token": { "type": "string", "description": "The 256-bit device token (raw hex, 64 characters).", "pattern": "^[0-9a-f]{64}$", "examples": ["00112233445566778899aabbccddeeff00112233445566778899aabbccddeeff"] },
-    "server_proof": { "type": "string", "description": "base64url(HMAC-SHA256(K, transcript(server))).", "pattern": "^[A-Za-z0-9_-]+$", "maxLength": 128, "examples": ["ZmFrZS1zZXJ2ZXItcHJvb2Y"] }
+    "server_proof": { "type": "string", "description": "base64url(HMAC-SHA256(K, transcript(server))): 32 bytes as 43 characters of unpadded base64url.", "pattern": "^[A-Za-z0-9_-]{43}$", "examples": ["ZmVkY2JhOTg3NjU0MzIxMGZlZGNiYTk4NzY1NDMyMTA"] }
   }
 }
