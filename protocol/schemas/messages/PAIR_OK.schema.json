@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/messages/PAIR_OK.schema.json",
+  "title": "PAIR_OK payload",
+  "description": "Sent by the daemon on a successful proof. The token is stored in phone secure storage together with device_id and the pinned fingerprint. See SRD Sections 4.4 and 7.5.",
+  "type": "object",
+  "required": ["device_token", "server_proof"],
+  "additionalProperties": true,
+  "properties": {
+    "device_token": { "type": "string", "description": "The 256-bit device token (raw hex, 64 characters).", "pattern": "^[0-9a-f]{64}$", "examples": ["00112233445566778899aabbccddeeff00112233445566778899aabbccddeeff"] },
+    "server_proof": { "type": "string", "description": "base64url(HMAC-SHA256(K, transcript(server))).", "pattern": "^[A-Za-z0-9_-]+$", "maxLength": 128, "examples": ["ZmFrZS1zZXJ2ZXItcHJvb2Y"] }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "v": 1,
+  "type": "SNAPSHOT",
+  "id": "s-shared-0006",
+  "ts": 1760000003500,
+  "payload": {
+    "os": "windows",
+    "telemetry": {
+      "cpu_temp": false,
+      "gpu": true,
+      "gpu_vendors": ["nvidia"],
+      "battery": true,
+      "disk": true,
+      "net": true
+    },
+    "features": {
+      "pty": true,
+      "signals": ["INTERRUPT", "TERMINATE", "KILL"],
+      "probes": ["process_alive"],
+      "notifier": "ntfy"
+    }
+  }
+}

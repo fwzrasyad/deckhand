@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/shared/StatusItem.schema.json",
+  "title": "StatusItem",
+  "description": "Current status of one action, as carried in SNAPSHOT.statuses (SRD 7.6). The probe decides the state string. Unknown fields are ignored (PROTO-002).",
+  "type": "object",
+  "required": ["action_id", "state", "since_ms"],
+  "additionalProperties": true,
+  "properties": {
+    "action_id": { "type": "string", "description": "Action the status belongs to.", "minLength": 1, "maxLength": 64, "examples": ["docker-up"] },
+    "state": { "type": "string", "description": "Probe-reported state.", "examples": ["running"] },
+    "detail": { "type": "string", "description": "Optional probe detail shown next to the state." },
+    "since_ms": { "type": "integer", "description": "When the state was first observed, in milliseconds since the Unix epoch.", "minimum": 0, "examples": [1760000000000] }
+  }
+}

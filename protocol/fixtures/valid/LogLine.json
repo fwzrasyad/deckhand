@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "type": "PROCESS_LOG",
+  "id": "s-shared-0008",
+  "ts": 1760000003700,
+  "payload": {
+    "seq": 41,
+    "stream": "stdout",
+    "ts": 1760000001500,
+    "text": "Container db-postgres Started"
+  }
+}

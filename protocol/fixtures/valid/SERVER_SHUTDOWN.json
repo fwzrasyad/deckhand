@@ -1,0 +1,10 @@
+{
+  "v": 1,
+  "type": "SERVER_SHUTDOWN",
+  "id": "s-shutdown-0001",
+  "ts": 1760000001600,
+  "payload": {
+    "reason": "daemon stopping",
+    "reconnect_after_sec": 30
+  }
+}

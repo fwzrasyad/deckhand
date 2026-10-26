@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/messages/PAIR_CHALLENGE.schema.json",
+  "title": "PAIR_CHALLENGE payload",
+  "description": "Daemon's answer to PAIR_REQUEST, carrying its nonce for the pairing transcript. See SRD Sections 4.4 and 7.5.",
+  "type": "object",
+  "required": ["server_nonce"],
+  "additionalProperties": true,
+  "properties": {
+    "server_nonce": { "type": "string", "description": "16 random bytes, base64url.", "pattern": "^[A-Za-z0-9_-]+$", "maxLength": 64, "examples": ["ZmFrZS1zZXJ2ZXItbm9uY2U"] }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "v": 1,
+  "type": "PAIR_OK",
+  "id": "s-pair-0004",
+  "reply_to": "c-pair-0003",
+  "ts": 1760000001300,
+  "payload": {
+    "device_token": "00112233445566778899aabbccddeeff00112233445566778899aabbccddeeff",
+    "server_proof": "ZmFrZS1zZXJ2ZXItcHJvb2Y"
+  }
+}

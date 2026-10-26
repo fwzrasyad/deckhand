@@ -1,0 +1,38 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/shared/Capabilities.schema.json",
+  "title": "Capabilities",
+  "description": "What the daemon host can do (SRD 7.6). The phone hides UI for anything not supported. Unknown fields are ignored (PROTO-002).",
+  "type": "object",
+  "required": ["os", "telemetry", "features"],
+  "additionalProperties": true,
+  "properties": {
+    "os": { "type": "string", "description": "Operating system identifier.", "enum": ["windows", "linux", "macos"], "examples": ["linux"] },
+    "telemetry": {
+      "type": "object",
+      "description": "Available telemetry providers.",
+      "required": ["cpu_temp", "gpu", "gpu_vendors", "battery", "disk", "net"],
+      "additionalProperties": true,
+      "properties": {
+        "cpu_temp": { "type": "boolean", "description": "CPU temperature is available." },
+        "gpu": { "type": "boolean", "description": "GPU metrics are available." },
+        "gpu_vendors": { "type": "array", "description": "Detected GPU vendors.", "items": { "type": "string" }, "examples": [["nvidia"]] },
+        "battery": { "type": "boolean", "description": "Battery metrics are available." },
+        "disk": { "type": "boolean", "description": "Disk throughput is available." },
+        "net": { "type": "boolean", "description": "Network throughput is available." }
+      }
+    },
+    "features": {
+      "type": "object",
+      "description": "Available process and notifier features.",
+      "required": ["pty", "signals", "probes", "notifier"],
+      "additionalProperties": true,
+      "properties": {
+        "pty": { "type": "boolean", "description": "PTY runs are supported." },
+        "signals": { "type": "array", "description": "Signals the daemon can deliver.", "items": { "type": "string", "enum": ["INTERRUPT", "TERMINATE", "KILL"] }, "examples": [["INTERRUPT", "TERMINATE", "KILL"]] },
+        "probes": { "type": "array", "description": "Status probes implemented on this host.", "items": { "type": "string" }, "examples": [["process_alive", "docker_container"]] },
+        "notifier": { "type": "string", "description": "Configured notifier type.", "examples": ["none"] }
+      }
+    }
+  }
+}

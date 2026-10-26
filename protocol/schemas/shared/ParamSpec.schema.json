@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/shared/ParamSpec.schema.json",
+  "title": "ParamSpec",
+  "description": "Parameter specification exposed to the phone (SRD 7.6). The phone may pre-validate; the daemon is authoritative. Unknown fields are ignored (PROTO-002).",
+  "type": "object",
+  "required": ["name", "label", "type", "required"],
+  "additionalProperties": true,
+  "properties": {
+    "name": { "type": "string", "description": "Parameter name used in argv templating.", "minLength": 1, "maxLength": 64, "examples": ["branch"] },
+    "label": { "type": "string", "description": "Field label shown on the phone.", "examples": ["Branch"] },
+    "type": { "type": "string", "description": "Value type.", "enum": ["string", "int", "number", "bool", "enum"], "examples": ["string"] },
+    "required": { "type": "boolean", "description": "Whether the parameter must be supplied." },
+    "default": { "description": "Default value; its type follows 'type'. Any JSON value is allowed." },
+    "choices": { "type": "array", "description": "Allowed values when type is 'enum'.", "items": {}, "examples": [["main", "develop"]] },
+    "min": { "type": "number", "description": "Minimum for numeric types." },
+    "max": { "type": "number", "description": "Maximum for numeric types." },
+    "max_length": { "type": "integer", "description": "Maximum length for string types.", "minimum": 0, "examples": [64] },
+    "pattern": { "type": "string", "description": "Regular expression a string value must match.", "examples": ["^[A-Za-z0-9._/-]+$"] },
+    "secret": { "type": "boolean", "description": "Whether the value must never be logged or echoed back." },
+    "placeholder": { "type": "string", "description": "Hint text shown in the empty field." }
+  }
+}

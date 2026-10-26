@@ -1,0 +1,106 @@
+{
+  "v": 1,
+  "type": "SNAPSHOT",
+  "id": "s-snapshot-0002",
+  "reply_to": "c-snapshot-0001",
+  "ts": 1760000001800,
+  "payload": {
+    "capabilities": {
+      "os": "linux",
+      "telemetry": {
+        "cpu_temp": true,
+        "gpu": false,
+        "gpu_vendors": [],
+        "battery": true,
+        "disk": true,
+        "net": true
+      },
+      "features": {
+        "pty": true,
+        "signals": ["INTERRUPT", "TERMINATE", "KILL"],
+        "probes": ["process_alive", "docker_container"],
+        "notifier": "none"
+      }
+    },
+    "actions": [
+      {
+        "id": "docker-up",
+        "label": "Docker Up",
+        "icon": "docker",
+        "category": "Docker",
+        "description": "",
+        "mode": "pipe",
+        "interactive": false,
+        "confirm": false,
+        "parallel": false,
+        "has_status": true,
+        "params": []
+      },
+      {
+        "id": "git-checkout",
+        "label": "Checkout",
+        "icon": "git-branch",
+        "category": "Git",
+        "description": "Switch branch",
+        "mode": "pipe",
+        "interactive": false,
+        "confirm": false,
+        "parallel": true,
+        "has_status": false,
+        "params": [
+          {
+            "name": "branch",
+            "label": "Branch",
+            "type": "string",
+            "required": true,
+            "max_length": 64,
+            "pattern": "^[A-Za-z0-9._/-]+$"
+          }
+        ]
+      }
+    ],
+    "layout": {
+      "rev": 3,
+      "pages": [
+        {
+          "id": "page-1",
+          "title": "Home",
+          "cols": 3,
+          "rows": 2,
+          "cells": [
+            { "col": 0, "row": 0, "kind": "action", "action_id": "docker-up" },
+            { "col": 1, "row": 0, "col_span": 1, "row_span": 1, "kind": "widget", "widget": "cpu" }
+          ]
+        }
+      ]
+    },
+    "statuses": [
+      { "action_id": "docker-up", "state": "running", "detail": "db-postgres", "since_ms": 1760000000000 }
+    ],
+    "active_runs": [
+      {
+        "run_id": "01J9Z3RUN",
+        "action_id": "docker-up",
+        "state": "RUNNING",
+        "started_at_ms": 1760000001200
+      }
+    ],
+    "alert_rules": {
+      "rev": 1,
+      "rules": [
+        {
+          "id": "cpu-hot",
+          "metric": "cpu.usage_percent",
+          "op": ">",
+          "threshold": 90,
+          "for_sec": 30,
+          "clear_margin": 5,
+          "cooldown_sec": 300,
+          "severity": "warning",
+          "enabled": true
+        }
+      ]
+    },
+    "active_alerts": []
+  }
+}

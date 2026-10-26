@@ -1,0 +1,21 @@
+{
+  "v": 1,
+  "type": "RUNS",
+  "id": "s-runs-0002",
+  "reply_to": "c-runs-0001",
+  "ts": 1760000002400,
+  "payload": {
+    "runs": [
+      {
+        "run_id": "01J9Z3RUN",
+        "action_id": "docker-up",
+        "state": "EXITED",
+        "started_at_ms": 1760000001200,
+        "ended_at_ms": 1760000002200,
+        "exit_code": 0,
+        "signal": "TERMINATE",
+        "reason": "user requested"
+      }
+    ]
+  }
+}

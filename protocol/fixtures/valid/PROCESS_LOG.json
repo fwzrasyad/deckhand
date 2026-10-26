@@ -1,0 +1,14 @@
+{
+  "v": 1,
+  "type": "PROCESS_LOG",
+  "id": "s-log-0004",
+  "ts": 1760000002100,
+  "payload": {
+    "run_id": "01J9Z3RUN",
+    "lines": [
+      { "seq": 41, "stream": "stdout", "ts": 1760000001500, "text": "Container db-postgres Started" },
+      { "seq": 42, "stream": "stderr", "ts": 1760000001550, "text": "warning: image is cached" }
+    ],
+    "truncated": false
+  }
+}

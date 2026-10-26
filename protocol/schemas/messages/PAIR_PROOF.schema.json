@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/messages/PAIR_PROOF.schema.json",
+  "title": "PAIR_PROOF payload",
+  "description": "Phone's HMAC-SHA256 proof over the client transcript. See SRD Sections 4.4 and 7.5.",
+  "type": "object",
+  "required": ["proof"],
+  "additionalProperties": true,
+  "properties": {
+    "proof": { "type": "string", "description": "base64url(HMAC-SHA256(K, transcript(client))).", "pattern": "^[A-Za-z0-9_-]+$", "maxLength": 128, "examples": ["ZmFrZS1wYWlyaW5nLXByb29m"] }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "v": 1,
+  "type": "ACTION_RUN",
+  "id": "c-run-0001",
+  "ts": 1760000001900,
+  "payload": {
+    "action_id": "git-checkout",
+    "params": { "branch": "main" },
+    "confirmed": true
+  }
+}

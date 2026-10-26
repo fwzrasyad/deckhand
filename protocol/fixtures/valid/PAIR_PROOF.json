@@ -1,0 +1,10 @@
+{
+  "v": 1,
+  "type": "PAIR_PROOF",
+  "id": "c-pair-0003",
+  "reply_to": "s-pair-0002",
+  "ts": 1760000001200,
+  "payload": {
+    "proof": "ZmFrZS1wYWlyaW5nLXByb29m"
+  }
+}

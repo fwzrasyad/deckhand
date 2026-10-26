@@ -1,0 +1,14 @@
+{
+  "v": 1,
+  "type": "SNAPSHOT",
+  "id": "s-snapshot-0022",
+  "ts": 1760000005100,
+  "payload": {
+    "actions": [],
+    "layout": { "rev": 0, "pages": [] },
+    "statuses": [],
+    "active_runs": [],
+    "alert_rules": { "rev": 0, "rules": [] },
+    "active_alerts": []
+  }
+}

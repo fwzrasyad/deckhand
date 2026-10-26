@@ -1,0 +1,9 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/messages/UNPAIR_SELF.schema.json",
+  "title": "UNPAIR_SELF payload",
+  "description": "Sent by a paired client to remove its own device record. The payload is empty; unknown fields are ignored (PROTO-002). See SRD Section 7.5.",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {}
+}

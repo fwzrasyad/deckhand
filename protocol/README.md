@@ -11,17 +11,47 @@ protocol/
 ├── VERSION                     Integer protocol version (currently 1)
 ├── schemas/
 │   ├── envelope.schema.json    The outer message envelope
-│   └── messages/               Per-type payload schemas
-│       ├── HELLO.schema.json
-│       ├── AUTH.schema.json
-│       ├── AUTH_OK.schema.json
-│       ├── AUTH_FAIL.schema.json
-│       └── ERROR.schema.json
+│   ├── messages/               Per-type payload schemas
+│   └── shared/                 Payload shapes reused by several messages
 └── fixtures/
     ├── valid/                  Valid example messages
     ├── invalid/                Invalid examples (for negative tests)
     └── sessions/               Full recorded session transcripts (.jsonl)
 ```
+
+A fixture's file name selects the schema under test: `<SCHEMA>.json` in
+`valid/`, `<SCHEMA>_<rule broken>.json` in `invalid/`. Shared shapes are
+referenced from message schemas with relative `$ref`s.
+
+## Messages (v1)
+
+| Type | Dir | Payload |
+| :-- | :-- | :-- |
+| `HELLO` | S->C | server_id, server_name, daemon_version, protocol_versions[], os, arch, tls_fp, pairing_open, auth_required |
+| `AUTH` | C->S | device_id, token, protocol_version, client{app_version, platform} |
+| `AUTH_OK` | S->C | session_id, device_name, protocol_version, server_time_ms, limits{} |
+| `AUTH_FAIL` | S->C | code, retry_after_sec? |
+| `PAIR_REQUEST` | C->S | device_id, device_name, client_nonce |
+| `PAIR_CHALLENGE` | S->C | server_nonce |
+| `PAIR_PROOF` | C->S | proof |
+| `PAIR_OK` | S->C | device_token, server_proof |
+| `PAIR_FAIL` | S->C | code |
+| `UNPAIR_SELF` | C->S | (empty) |
+| `PING`, `PONG` | both | nonce |
+| `SERVER_SHUTDOWN` | S->C | reason, reconnect_after_sec |
+| `ERROR` | S->C | code, message, details? |
+| `SNAPSHOT_GET` | C->S | (empty) |
+| `SNAPSHOT` | S->C | capabilities, actions[], layout, statuses[], active_runs[], alert_rules{rev, rules[]}, active_alerts[] |
+| `ACTION_RUN` | C->S | action_id, params, confirmed? |
+| `ACTION_ACCEPTED` | S->C | run_id |
+| `RUN_STATE` | S->C | RunState |
+| `PROCESS_LOG` | S->C | run_id, lines[], truncated? |
+| `RUN_SIGNAL` | C->S | run_id, signal |
+| `RUNS_LIST` | C->S | limit? |
+| `RUNS` | S->C | runs[] |
+
+Shared shapes in `schemas/shared/`: `ActionMeta`, `ParamSpec`, `RunState`,
+`Layout`, `Capabilities`, `AlertRule`, `LogLine`, `StatusItem`.
 
 ## Rules
 

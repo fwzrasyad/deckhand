@@ -1,0 +1,10 @@
+{
+  "v": 1,
+  "type": "RUN_SIGNAL",
+  "id": "c-signal-0001",
+  "ts": 1760000002200,
+  "payload": {
+    "run_id": "01J9Z3RUN",
+    "signal": "TERMINATE"
+  }
+}

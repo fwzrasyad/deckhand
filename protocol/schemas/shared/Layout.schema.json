@@ -1,0 +1,47 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/shared/Layout.schema.json",
+  "title": "Layout",
+  "description": "Deck layout (SRD 7.6). At most 12 pages, 6 columns, 8 rows, 256 KiB serialized. Unknown fields are ignored (PROTO-002).",
+  "type": "object",
+  "required": ["rev", "pages"],
+  "additionalProperties": true,
+  "properties": {
+    "rev": { "type": "integer", "description": "Layout revision, incremented on every accepted change.", "minimum": 0, "examples": [3] },
+    "pages": {
+      "type": "array",
+      "description": "Ordered pages.",
+      "maxItems": 12,
+      "items": {
+        "type": "object",
+        "required": ["id", "title", "cols", "rows", "cells"],
+        "additionalProperties": true,
+        "properties": {
+          "id": { "type": "string", "description": "Page identifier.", "minLength": 1, "maxLength": 64, "examples": ["page-1"] },
+          "title": { "type": "string", "description": "Page title.", "examples": ["Home"] },
+          "cols": { "type": "integer", "description": "Grid columns.", "minimum": 1, "maximum": 6, "examples": [3] },
+          "rows": { "type": "integer", "description": "Grid rows.", "minimum": 1, "maximum": 8, "examples": [2] },
+          "cells": {
+            "type": "array",
+            "description": "Placed cells.",
+            "maxItems": 48,
+            "items": {
+              "type": "object",
+              "required": ["col", "row", "kind"],
+              "additionalProperties": true,
+              "properties": {
+                "col": { "type": "integer", "description": "Zero-based column.", "minimum": 0, "examples": [0] },
+                "row": { "type": "integer", "description": "Zero-based row.", "minimum": 0, "examples": [0] },
+                "col_span": { "type": "integer", "description": "Columns covered; default 1.", "minimum": 1, "examples": [1] },
+                "row_span": { "type": "integer", "description": "Rows covered; default 1.", "minimum": 1, "examples": [1] },
+                "kind": { "type": "string", "description": "What the cell shows.", "enum": ["action", "widget"], "examples": ["action"] },
+                "action_id": { "type": "string", "description": "Action identifier; present when kind is 'action'.", "minLength": 1, "maxLength": 64, "examples": ["docker-up"] },
+                "widget": { "type": "string", "description": "Widget identifier; present when kind is 'widget'.", "enum": ["cpu", "ram", "gpu", "disk", "net", "battery"], "examples": ["cpu"] }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

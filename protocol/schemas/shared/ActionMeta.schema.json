@@ -1,0 +1,22 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/shared/ActionMeta.schema.json",
+  "title": "ActionMeta",
+  "description": "What the phone may know about an action (SRD 7.6). The run block -- argv, cwd, env, shell -- is NEVER sent. Unknown fields are ignored (PROTO-002).",
+  "type": "object",
+  "required": ["id", "label", "icon", "category", "description", "mode", "interactive", "confirm", "parallel", "has_status", "params"],
+  "additionalProperties": true,
+  "properties": {
+    "id": { "type": "string", "description": "Action identifier from actions.yaml.", "minLength": 1, "maxLength": 64, "examples": ["docker-up"] },
+    "label": { "type": "string", "description": "Button label.", "examples": ["Docker Up"] },
+    "icon": { "type": "string", "description": "Icon name from the shared icon set.", "examples": ["docker"] },
+    "category": { "type": "string", "description": "Grouping label.", "examples": ["Docker"] },
+    "description": { "type": "string", "description": "Optional longer description; may be empty." },
+    "mode": { "type": "string", "description": "Output mode of the run.", "enum": ["pipe", "pty"], "examples": ["pipe"] },
+    "interactive": { "type": "boolean", "description": "Whether the run accepts stdin and resize." },
+    "confirm": { "type": "boolean", "description": "Whether the phone must confirm before running." },
+    "parallel": { "type": "boolean", "description": "Whether more than one run of this action may be active." },
+    "has_status": { "type": "boolean", "description": "Whether the action has a status probe." },
+    "params": { "type": "array", "description": "Parameter specs, in display order.", "items": { "$ref": "https://deckhand.local/protocol/schemas/shared/ParamSpec.schema.json" } }
+  }
+}

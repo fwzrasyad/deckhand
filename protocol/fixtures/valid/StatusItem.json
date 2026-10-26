@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "type": "SNAPSHOT",
+  "id": "s-shared-0009",
+  "ts": 1760000003800,
+  "payload": {
+    "action_id": "docker-up",
+    "state": "running",
+    "detail": "db-postgres",
+    "since_ms": 1760000000000
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/messages/ACTION_ACCEPTED.schema.json",
+  "title": "ACTION_ACCEPTED payload",
+  "description": "Sent when the run is registered, not when it finishes. See SRD Section 7.5.",
+  "type": "object",
+  "required": ["run_id"],
+  "additionalProperties": true,
+  "properties": {
+    "run_id": { "type": "string", "description": "Identifier of the new run.", "minLength": 1, "maxLength": 64, "examples": ["01J9Z3RUN"] }
+  }
+}

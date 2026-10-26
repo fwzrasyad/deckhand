@@ -1,0 +1,9 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/messages/SNAPSHOT_GET.schema.json",
+  "title": "SNAPSHOT_GET payload",
+  "description": "Sent by the client to request a fresh SNAPSHOT. The payload is empty; unknown fields are ignored (PROTO-002). See SRD Section 7.5.",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {}
+}

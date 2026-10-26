@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/messages/SERVER_SHUTDOWN.schema.json",
+  "title": "SERVER_SHUTDOWN payload",
+  "description": "Sent before the daemon closes every connection with 4503 while shutting down. See SRD Sections 7.5 and 7.7.",
+  "type": "object",
+  "required": ["reason", "reconnect_after_sec"],
+  "additionalProperties": true,
+  "properties": {
+    "reason": { "type": "string", "description": "Why the daemon is going away.", "examples": ["daemon stopping"] },
+    "reconnect_after_sec": { "type": "integer", "description": "Seconds the client should wait before reconnecting.", "minimum": 0, "examples": [30] }
+  }
+}

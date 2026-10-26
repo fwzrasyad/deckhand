@@ -1,0 +1,29 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/shared/RunState.schema.json",
+  "title": "RunState",
+  "description": "State of one run (SRD 7.6). Terminal states are all except STARTING, RUNNING, and STOPPING. Unknown fields are ignored (PROTO-002).",
+  "type": "object",
+  "required": ["run_id", "action_id", "state", "started_at_ms"],
+  "additionalProperties": true,
+  "properties": {
+    "run_id": { "type": "string", "description": "Opaque run identifier.", "minLength": 1, "maxLength": 64, "examples": ["01J9Z3RUN"] },
+    "action_id": { "type": "string", "description": "Action that produced this run.", "minLength": 1, "maxLength": 64, "examples": ["docker-up"] },
+    "state": { "type": "string", "description": "Current run state.", "enum": ["STARTING", "RUNNING", "STOPPING", "EXITED", "FAILED_TO_START", "TIMED_OUT", "CANCELLED"], "examples": ["RUNNING"] },
+    "started_at_ms": { "type": "integer", "description": "Start time in milliseconds since the Unix epoch.", "minimum": 0, "examples": [1760000001200] },
+    "ended_at_ms": { "type": "integer", "description": "End time in milliseconds since the Unix epoch; present once terminal.", "minimum": 0 },
+    "exit_code": { "type": "integer", "description": "Process exit code; present for EXITED. Any value is allowed, 0 is success." },
+    "signal": { "type": "string", "description": "Signal that stopped the run, when one did.", "enum": ["INTERRUPT", "TERMINATE", "KILL"], "examples": ["TERMINATE"] },
+    "reason": { "type": "string", "description": "Daemon-supplied explanation for FAILED_TO_START, TIMED_OUT, or CANCELLED." },
+    "step": {
+      "type": "object",
+      "description": "Macro progress, when the run belongs to a macro.",
+      "required": ["index", "total"],
+      "additionalProperties": true,
+      "properties": {
+        "index": { "type": "integer", "description": "Zero-based step index.", "minimum": 0 },
+        "total": { "type": "integer", "description": "Number of steps in the macro.", "minimum": 1 }
+      }
+    }
+  }
+}

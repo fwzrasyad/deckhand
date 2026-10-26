@@ -1,0 +1,21 @@
+{
+  "v": 1,
+  "type": "SNAPSHOT",
+  "id": "s-shared-0005",
+  "ts": 1760000003400,
+  "payload": {
+    "rev": 3,
+    "pages": [
+      {
+        "id": "page-1",
+        "title": "Home",
+        "cols": 3,
+        "rows": 2,
+        "cells": [
+          { "col": 0, "row": 0, "kind": "action", "action_id": "docker-up" },
+          { "col": 1, "row": 0, "col_span": 2, "row_span": 1, "kind": "widget", "widget": "cpu" }
+        ]
+      }
+    ]
+  }
+}

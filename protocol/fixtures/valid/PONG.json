@@ -1,0 +1,10 @@
+{
+  "v": 1,
+  "type": "PONG",
+  "id": "s-pong-0001",
+  "reply_to": "c-ping-0002",
+  "ts": 1760000001520,
+  "payload": {
+    "nonce": "cGluZy0wMDAy"
+  }
+}

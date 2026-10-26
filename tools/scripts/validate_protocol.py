@@ -3,13 +3,14 @@
 
 Every ``*.json`` file in ``fixtures/valid`` must validate; every file in
 ``fixtures/invalid`` must be rejected. The schema is chosen from the file name:
-the stem starts with the schema name (``envelope``, ``HELLO``, ``AUTH``,
-``AUTH_OK``, ``AUTH_FAIL``, ``ERROR``), optionally followed by
-``_<rule broken>``.
+the stem starts with the schema name, optionally followed by
+``_<rule broken>``. Schema names are discovered from ``schemas/messages`` and
+``schemas/shared`` (plus ``envelope``), so a new schema does not need an edit
+here; ``$ref`` targets in ``schemas/shared`` resolve through the local registry.
 
 Message fixtures are checked twice: the whole document against
-``envelope.schema.json``, and its ``payload`` against the message schema.
-Envelope fixtures are checked against the envelope schema only.
+``envelope.schema.json``, and its ``payload`` against the message or shared
+schema. Envelope fixtures are checked against the envelope schema only.
 
 The script also fails when a schema has no valid fixture, so schemas and
 fixtures cannot drift apart silently (protocol/README.md rule 1).
@@ -26,20 +27,24 @@ from typing import Any
 
 try:
     from jsonschema import Draft7Validator
+    from referencing import Registry, Resource
+    from referencing.jsonschema import DRAFT7
 except ModuleNotFoundError:  # pragma: no cover - environment problem, not a bug
     raise SystemExit(
         "validate_protocol.py needs jsonschema: run `uv sync` in daemon/ "
         "and use daemon/.venv/bin/python (or .venv\\Scripts\\python.exe)."
     ) from None
 
-SCHEMA_NAMES: tuple[str, ...] = (
-    "envelope",
-    "HELLO",
-    "AUTH",
-    "AUTH_OK",
-    "AUTH_FAIL",
-    "ERROR",
-)
+
+def discover_schema_names(schemas_dir: Path) -> tuple[str, ...]:
+    """Return the envelope plus every schema in ``messages`` and ``shared``."""
+    names = {"envelope"}
+    for directory in ("messages", "shared"):
+        names.update(
+            path.name.removesuffix(".schema.json")
+            for path in (schemas_dir / directory).glob("*.schema.json")
+        )
+    return tuple(sorted(names))
 
 
 def load_json(path: Path) -> Any:
@@ -48,19 +53,23 @@ def load_json(path: Path) -> Any:
 
 
 def schema_path(schemas_dir: Path, name: str) -> Path:
-    """Return the schema file for a message name."""
+    """Return the schema file for a message or shared type."""
     if name == "envelope":
         return schemas_dir / "envelope.schema.json"
+    for directory in ("messages", "shared"):
+        candidate = schemas_dir / directory / f"{name}.schema.json"
+        if candidate.is_file():
+            return candidate
     return schemas_dir / "messages" / f"{name}.schema.json"
 
 
-def schema_name_for(stem: str) -> str | None:
+def schema_name_for(stem: str, names: tuple[str, ...]) -> str | None:
     """Return the schema a fixture targets, or None when the name is unknown.
 
     Longest match wins, so ``AUTH_FAIL_code_not_in_enum`` selects ``AUTH_FAIL``
     rather than ``AUTH``.
     """
-    for name in sorted(SCHEMA_NAMES, key=len, reverse=True):
+    for name in sorted(names, key=len, reverse=True):
         if stem == name or stem.startswith(f"{name}_"):
             return name
     return None
@@ -90,16 +99,23 @@ def main(argv: list[str]) -> int:
     schemas_dir = Path(argv[1]) if len(argv) > 1 else Path("protocol/schemas")
     fixtures_dir = Path(argv[2]) if len(argv) > 2 else Path("protocol/fixtures")
 
+    names = discover_schema_names(schemas_dir)
+    schemas = {name: load_json(schema_path(schemas_dir, name)) for name in names}
+    registry = Registry().with_resources(
+        (schema["$id"], Resource.from_contents(schema, default_specification=DRAFT7))
+        for schema in schemas.values()
+        if "$id" in schema
+    )
     validators = {
-        name: Draft7Validator(load_json(schema_path(schemas_dir, name)))
-        for name in SCHEMA_NAMES
+        name: Draft7Validator(schema, registry=registry)
+        for name, schema in schemas.items()
     }
     failures: list[str] = []
     covered: set[str] = set()
     passed = 0
 
     for path in sorted((fixtures_dir / "valid").glob("*.json")):
-        name = schema_name_for(path.stem)
+        name = schema_name_for(path.stem, names)
         if name is None:
             failures.append(f"{path.name}: no schema matches this file name")
             continue
@@ -112,7 +128,7 @@ def main(argv: list[str]) -> int:
             print(f"ok    valid/{path.name}  ({name})")
 
     for path in sorted((fixtures_dir / "invalid").glob("*.json")):
-        name = schema_name_for(path.stem)
+        name = schema_name_for(path.stem, names)
         if name is None:
             failures.append(f"{path.name}: no schema matches this file name")
             continue
@@ -123,7 +139,7 @@ def main(argv: list[str]) -> int:
         else:
             failures.append(f"{path.name}: expected a violation, but it validated")
 
-    for name in SCHEMA_NAMES:
+    for name in names:
         if name not in covered:
             failures.append(f"{name}: no valid fixture")
 

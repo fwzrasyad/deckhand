@@ -1,0 +1,10 @@
+{
+  "v": 1,
+  "type": "PAIR_CHALLENGE",
+  "id": "s-pair-0002",
+  "reply_to": "c-pair-0001",
+  "ts": 1760000001100,
+  "payload": {
+    "server_nonce": "ZmFrZS1zZXJ2ZXItbm9uY2U"
+  }
+}

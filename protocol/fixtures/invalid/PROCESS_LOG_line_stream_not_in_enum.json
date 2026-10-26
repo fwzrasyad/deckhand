@@ -1,0 +1,12 @@
+{
+  "v": 1,
+  "type": "PROCESS_LOG",
+  "id": "s-log-0026",
+  "ts": 1760000005500,
+  "payload": {
+    "run_id": "01J9Z3RUN",
+    "lines": [
+      { "seq": 41, "stream": "console", "ts": 1760000001500, "text": "Container db-postgres Started" }
+    ]
+  }
+}

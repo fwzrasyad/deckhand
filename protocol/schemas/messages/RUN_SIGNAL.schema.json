@@ -1,0 +1,13 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/messages/RUN_SIGNAL.schema.json",
+  "title": "RUN_SIGNAL payload",
+  "description": "Sent by the client to signal an active run. See SRD Section 7.5.",
+  "type": "object",
+  "required": ["run_id", "signal"],
+  "additionalProperties": true,
+  "properties": {
+    "run_id": { "type": "string", "description": "Run to signal.", "minLength": 1, "maxLength": 64, "examples": ["01J9Z3RUN"] },
+    "signal": { "type": "string", "description": "Signal to deliver.", "enum": ["INTERRUPT", "TERMINATE", "KILL"], "examples": ["TERMINATE"] }
+  }
+}

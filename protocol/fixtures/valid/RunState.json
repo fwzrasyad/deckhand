@@ -1,0 +1,17 @@
+{
+  "v": 1,
+  "type": "RUN_STATE",
+  "id": "s-shared-0004",
+  "ts": 1760000003300,
+  "payload": {
+    "run_id": "01J9Z3RUN",
+    "action_id": "docker-up",
+    "state": "EXITED",
+    "started_at_ms": 1760000001200,
+    "ended_at_ms": 1760000002200,
+    "exit_code": 0,
+    "signal": "TERMINATE",
+    "reason": "user requested",
+    "step": { "index": 1, "total": 3 }
+  }
+}

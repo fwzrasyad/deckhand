@@ -1,0 +1,12 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/messages/PING.schema.json",
+  "title": "PING payload",
+  "description": "Optional keepalive and RTT probe, sendable by either side. See SRD Sections 7.5 and 7.9.",
+  "type": "object",
+  "required": ["nonce"],
+  "additionalProperties": true,
+  "properties": {
+    "nonce": { "type": "string", "description": "Correlation value echoed by the matching PONG.", "pattern": "^[A-Za-z0-9_-]+$", "maxLength": 64, "examples": ["cGluZy0wMDAx"] }
+  }
+}

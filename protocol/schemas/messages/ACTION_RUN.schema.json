@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/messages/ACTION_RUN.schema.json",
+  "title": "ACTION_RUN payload",
+  "description": "Sent by the client to start an action. See SRD Section 7.5.",
+  "type": "object",
+  "required": ["action_id", "params"],
+  "additionalProperties": true,
+  "properties": {
+    "action_id": { "type": "string", "description": "Action to run.", "minLength": 1, "maxLength": 64, "examples": ["docker-up"] },
+    "params": { "type": "object", "description": "Parameter values keyed by ParamSpec.name. The daemon validates them.", "additionalProperties": true, "examples": [{"branch": "main"}] },
+    "confirmed": { "type": "boolean", "description": "Set when the user accepted a confirmation prompt for a confirm action." }
+  }
+}

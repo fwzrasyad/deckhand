@@ -1,0 +1,15 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/shared/LogLine.schema.json",
+  "title": "LogLine",
+  "description": "One captured output line of a pipe-mode run (SRD 7.6). Unknown fields are ignored (PROTO-002).",
+  "type": "object",
+  "required": ["seq", "stream", "ts", "text"],
+  "additionalProperties": true,
+  "properties": {
+    "seq": { "type": "integer", "description": "Per-run monotonically increasing sequence number.", "minimum": 0, "examples": [41] },
+    "stream": { "type": "string", "description": "Which stream produced the line.", "enum": ["stdout", "stderr"], "examples": ["stdout"] },
+    "ts": { "type": "integer", "description": "Capture time in milliseconds since the Unix epoch.", "minimum": 0, "examples": [1760000001500] },
+    "text": { "type": "string", "description": "Line content without the trailing newline.", "examples": ["Container db-postgres Started"] }
+  }
+}

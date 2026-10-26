@@ -1,0 +1,23 @@
+{
+  "v": 1,
+  "type": "SNAPSHOT",
+  "id": "s-shared-0002",
+  "ts": 1760000003100,
+  "payload": {
+    "id": "docker-up",
+    "label": "Docker Up",
+    "icon": "docker",
+    "category": "Docker",
+    "description": "",
+    "mode": "pipe",
+    "interactive": false,
+    "confirm": false,
+    "parallel": false,
+    "has_status": true,
+    "params": [],
+    "argv": ["docker", "compose", "up", "-d"],
+    "cwd": "/home/dev/project",
+    "env": { "COMPOSE_PROJECT_NAME": "deckhand" },
+    "shell": false
+  }
+}

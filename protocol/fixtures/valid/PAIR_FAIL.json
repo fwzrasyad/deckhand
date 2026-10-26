@@ -1,0 +1,10 @@
+{
+  "v": 1,
+  "type": "PAIR_FAIL",
+  "id": "s-pair-0005",
+  "reply_to": "c-pair-0003",
+  "ts": 1760000001350,
+  "payload": {
+    "code": "PAIR_BAD_PROOF"
+  }
+}

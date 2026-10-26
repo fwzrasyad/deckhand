@@ -1,0 +1,17 @@
+{
+  "v": 1,
+  "type": "SNAPSHOT",
+  "id": "s-shared-0007",
+  "ts": 1760000003600,
+  "payload": {
+    "id": "cpu-hot",
+    "metric": "cpu.usage_percent",
+    "op": ">",
+    "threshold": 90,
+    "for_sec": 30,
+    "clear_margin": 5,
+    "cooldown_sec": 300,
+    "severity": "warning",
+    "enabled": true
+  }
+}

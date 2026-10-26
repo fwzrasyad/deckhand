@@ -1,0 +1,11 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/messages/RUNS_LIST.schema.json",
+  "title": "RUNS_LIST payload",
+  "description": "Sent by the client to list runs. See SRD Section 7.5.",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "limit": { "type": "integer", "description": "Maximum number of runs to return. Omitted means the daemon default.", "minimum": 1, "examples": [50] }
+  }
+}

@@ -1,0 +1,7 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/messages/RUN_STATE.schema.json",
+  "title": "RUN_STATE payload",
+  "description": "Run state, broadcast to all sessions on every change. The payload is the shared RunState shape (SRD 7.6).",
+  "$ref": "https://deckhand.local/protocol/schemas/shared/RunState.schema.json"
+}

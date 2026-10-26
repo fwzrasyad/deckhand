@@ -1,0 +1,31 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/messages/SNAPSHOT.schema.json",
+  "title": "SNAPSHOT payload",
+  "description": "Full state after AUTH_OK and on SNAPSHOT_GET. See SRD Section 7.5 and the shared shapes in 7.6.",
+  "type": "object",
+  "required": ["capabilities", "actions", "layout", "statuses", "active_runs", "alert_rules", "active_alerts"],
+  "additionalProperties": true,
+  "properties": {
+    "capabilities": { "$ref": "https://deckhand.local/protocol/schemas/shared/Capabilities.schema.json" },
+    "actions": { "type": "array", "description": "Every action the phone may display or run.", "items": { "$ref": "https://deckhand.local/protocol/schemas/shared/ActionMeta.schema.json" } },
+    "layout": { "$ref": "https://deckhand.local/protocol/schemas/shared/Layout.schema.json" },
+    "statuses": { "type": "array", "description": "Current status of actions that have a probe.", "items": { "$ref": "https://deckhand.local/protocol/schemas/shared/StatusItem.schema.json" } },
+    "active_runs": { "type": "array", "description": "Runs that are not terminal yet.", "items": { "$ref": "https://deckhand.local/protocol/schemas/shared/RunState.schema.json" } },
+    "alert_rules": {
+      "type": "object",
+      "description": "Current alert rules and their revision.",
+      "required": ["rev", "rules"],
+      "additionalProperties": true,
+      "properties": {
+        "rev": { "type": "integer", "description": "Revision of the rule set.", "minimum": 0, "examples": [1] },
+        "rules": { "type": "array", "description": "Configured rules.", "items": { "$ref": "https://deckhand.local/protocol/schemas/shared/AlertRule.schema.json" } }
+      }
+    },
+    "active_alerts": {
+      "type": "array",
+      "description": "Alerts currently raised. The item shape is not fixed in SRD 7.6; receivers ignore unknown fields (PROTO-002).",
+      "items": { "type": "object" }
+    }
+  }
+}

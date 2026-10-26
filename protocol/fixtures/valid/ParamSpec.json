@@ -1,0 +1,17 @@
+{
+  "v": 1,
+  "type": "SNAPSHOT",
+  "id": "s-shared-0003",
+  "ts": 1760000003200,
+  "payload": {
+    "name": "branch",
+    "label": "Branch",
+    "type": "string",
+    "required": true,
+    "default": "main",
+    "max_length": 64,
+    "pattern": "^[A-Za-z0-9._/-]+$",
+    "secret": false,
+    "placeholder": "main"
+  }
+}

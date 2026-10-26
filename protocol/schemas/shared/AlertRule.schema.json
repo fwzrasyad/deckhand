@@ -1,0 +1,20 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/shared/AlertRule.schema.json",
+  "title": "AlertRule",
+  "description": "One alert rule (SRD 7.6). Unknown fields are ignored (PROTO-002).",
+  "type": "object",
+  "required": ["id", "metric", "op", "threshold", "for_sec", "clear_margin", "cooldown_sec", "severity", "enabled"],
+  "additionalProperties": true,
+  "properties": {
+    "id": { "type": "string", "description": "Rule identifier.", "minLength": 1, "maxLength": 64, "examples": ["cpu-hot"] },
+    "metric": { "type": "string", "description": "Metric path, as used in telemetry frames.", "minLength": 1, "examples": ["cpu.usage_percent"] },
+    "op": { "type": "string", "description": "Comparison operator.", "enum": [">", ">=", "<", "<="], "examples": [">"] },
+    "threshold": { "type": "number", "description": "Value the metric is compared against.", "examples": [90] },
+    "for_sec": { "type": "number", "description": "Seconds the condition must hold before the alert fires.", "minimum": 0, "examples": [30] },
+    "clear_margin": { "type": "number", "description": "Hysteresis band used before clearing.", "minimum": 0, "examples": [5] },
+    "cooldown_sec": { "type": "integer", "description": "Seconds before the same rule may fire again.", "minimum": 0, "examples": [300] },
+    "severity": { "type": "string", "description": "Alert severity.", "enum": ["info", "warning", "critical"], "examples": ["warning"] },
+    "enabled": { "type": "boolean", "description": "Whether the rule is evaluated." }
+  }
+}

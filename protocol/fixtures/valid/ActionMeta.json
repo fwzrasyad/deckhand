@@ -1,0 +1,19 @@
+{
+  "v": 1,
+  "type": "SNAPSHOT",
+  "id": "s-shared-0001",
+  "ts": 1760000003000,
+  "payload": {
+    "id": "docker-up",
+    "label": "Docker Up",
+    "icon": "docker",
+    "category": "Docker",
+    "description": "Starts the dev stack",
+    "mode": "pipe",
+    "interactive": false,
+    "confirm": true,
+    "parallel": false,
+    "has_status": true,
+    "params": []
+  }
+}

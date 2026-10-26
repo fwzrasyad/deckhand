@@ -1,0 +1,14 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://deckhand.local/protocol/schemas/messages/PROCESS_LOG.schema.json",
+  "title": "PROCESS_LOG payload",
+  "description": "Batched output lines of a pipe-mode run. See SRD Sections 7.5 and 7.6.",
+  "type": "object",
+  "required": ["run_id", "lines"],
+  "additionalProperties": true,
+  "properties": {
+    "run_id": { "type": "string", "description": "Run that produced these lines.", "minLength": 1, "maxLength": 64, "examples": ["01J9Z3RUN"] },
+    "lines": { "type": "array", "description": "Captured lines, in sequence order.", "items": { "$ref": "https://deckhand.local/protocol/schemas/shared/LogLine.schema.json" } },
+    "truncated": { "type": "boolean", "description": "Set when the daemon dropped lines from this batch because of backpressure." }
+  }
+}

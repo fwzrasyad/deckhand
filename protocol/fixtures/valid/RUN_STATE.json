@@ -1,0 +1,13 @@
+{
+  "v": 1,
+  "type": "RUN_STATE",
+  "id": "s-run-0003",
+  "ts": 1760000002000,
+  "payload": {
+    "run_id": "01J9Z3RUN",
+    "action_id": "docker-up",
+    "state": "RUNNING",
+    "started_at_ms": 1760000001200,
+    "step": { "index": 0, "total": 1 }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "v": 1,
+  "type": "PAIR_PROOF",
+  "id": "c-pair-0013",
+  "ts": 1760000004200,
+  "payload": {
+    "proof": "proof with spaces"
+  }
+}
