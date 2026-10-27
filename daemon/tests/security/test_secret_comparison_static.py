@@ -11,10 +11,16 @@ from pathlib import Path
 
 import pytest
 
-_MODULE_PATHS = (
-    Path(__file__).resolve().parents[2] / "src" / "deckhand" / "security" / "crypto.py",
-    Path(__file__).resolve().parents[2] / "src" / "deckhand" / "security" / "tokens.py",
-)
+_SECURITY_DIR = Path(__file__).resolve().parents[2] / "src" / "deckhand" / "security"
+
+# Modules that compare secret material themselves and must use compare_digest.
+_DIGEST_PATHS = (_SECURITY_DIR / "crypto.py", _SECURITY_DIR / "tokens.py")
+
+# Every module that handles secrets, proofs, tokens or hashes. pairing.py and
+# lockout.py delegate comparisons to crypto/tokens, so for them the guarantee is
+# that they never reach for ``==`` on secret material, never log, and never put
+# a token in an exception message.
+_MODULE_PATHS = (*_DIGEST_PATHS, _SECURITY_DIR / "pairing.py", _SECURITY_DIR / "lockout.py")
 
 _SENSITIVE_NAMES = frozenset(
     {
@@ -64,7 +70,7 @@ def test_no_equality_comparison_on_secrets_or_hashes(path: Path) -> None:
     assert offenders == [], f"use hmac.compare_digest instead at {path}:{offenders}"
 
 
-@pytest.mark.parametrize("path", _MODULE_PATHS, ids=lambda path: path.name)
+@pytest.mark.parametrize("path", _DIGEST_PATHS, ids=lambda path: path.name)
 def test_modules_use_compare_digest(path: Path) -> None:
     calls = [
         node
